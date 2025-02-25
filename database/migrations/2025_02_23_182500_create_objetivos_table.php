@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Objetivo;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,18 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        $objetivos = [
+            1 => 'CAPTACAO',
+            2 => 'LOJA',
+            3 => 'MANUTENCAO',
+        ];
+
+        foreach ($objetivos as $value) {
+            Objetivo::query()->create([
+                'name' => $value,
+            ]);
+        }
     }
 
     /**
