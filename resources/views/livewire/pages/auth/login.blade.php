@@ -76,7 +76,7 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Formulário -->
         <div class="w-full md:w-1/2 flex flex-col justify-center p-6">
             <div class="flex justify-center mb-4">
-                <img src="{{asset('storage/assets/images/logoConvenio.png')}}" alt="Logo" class="w-12 h-12">
+                <img src="{{asset('assets/images/logoConvenio.png')}}" alt="Logo" class="w-12 h-12">
             </div>
             <h2 class="text-2xl font-semibold text-center mb-6">Visitas Convênio</h2>
             <form wire:submit="login" class="space-y-4">
@@ -103,7 +103,7 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
         <!-- Imagem -->
         <div class="hidden md:flex md:w-1/2 items-center justify-center">
-            <img src="{{asset('storage/assets/images/visitante.jpg')}}" alt="Ilustração" class="w-full h-full object-cover">
+            <img src="{{asset('assets/images/visitante.jpg')}}" alt="Ilustração" class="w-full h-full object-cover">
         </div>
     </div>
 </div>
