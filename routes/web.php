@@ -4,41 +4,45 @@ use App\Livewire\Agenda;
 use App\Livewire\ComissaoVisitas;
 use App\Livewire\Relatorio;
 use App\Livewire\Usuarios;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
+
+    if (app()->isLocal()) {
+        Auth::loginUsingId(1);
+        return to_route('dashboard');
+    }
+    
     return redirect('login');
 });
 
-Route::get('/relatorio', Relatorio::class)
-    ->middleware(['auth'])
-    ->name('relatorio');
+Route::middleware('auth')->group(function () {
 
-Route::get('/relatorio/{id}', [Relatorio::class, 'show_visita'])
-    ->middleware(['auth'])
+    Route::get('/relatorio', Relatorio::class)
+    ->name('relatorio')->lazy();
+
+    Route::get('/relatorio/{id}', [Relatorio::class, 'show_visita'])
     ->name('editar-visita');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    Route::view('dashboard', 'dashboard')
+    ->middleware(['verified'])
     ->name('dashboard');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
+    Route::view('profile', 'profile')
     ->name('profile');
 
-Route::get('/agenda', Agenda::class)
-->middleware(['auth'])
-->name('agenda');
+    Route::get('/agenda', Agenda::class)
+    ->name('agenda');
 
-Route::get('/usuarios', Usuarios::class)
-->middleware(['auth'])
-->name('usuarios');
+    Route::get('/usuarios', Usuarios::class)
+    ->name('usuarios');
 
-Route::get('/comissao', ComissaoVisitas::class)
-->middleware(['auth'])
-->name('comissao');
+    Route::get('/comissao', ComissaoVisitas::class)
+    ->name('comissao');
 
+});
 
 
 require __DIR__.'/auth.php';
