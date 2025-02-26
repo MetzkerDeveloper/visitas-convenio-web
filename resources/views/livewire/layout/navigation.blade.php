@@ -103,6 +103,11 @@ new class extends Component
                     {{ __('Peril') }}
                 </x-responsive-nav-link>
 
+                @can('isAdmin')
+                    <x-responsive-nav-link :href="route('usuarios')" wire:navigate>
+                        {{ __('Usuários') }}
+                    </x-responsive-nav-link>
+                @endcan
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>
