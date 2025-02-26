@@ -61,7 +61,7 @@
             </button>
         </div> --}}
    </x-filtro-container>
- 
+
     <!-- Resultados -->
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -69,7 +69,7 @@
                 <div class="flex flex-wrap justify-center gap-4 p-4">
 
                     @forelse ($visitas as $item)
-                        <x-card-visita :visita="$item" route="{{ route('editar-visita', ['id' => $item->id]) }}" wire:key="visita-{{ $item->id }}" />
+                        <x-card-visita :visita="$item" route="{{ route('editar-visita', ['id' => $item->id]) }}" :key="{{ $item->id }}" />
 
                     @empty
                         <div class="text-center w-full">

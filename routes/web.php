@@ -4,17 +4,24 @@ use App\Livewire\Agenda;
 use App\Livewire\ComissaoVisitas;
 use App\Livewire\Relatorio;
 use App\Livewire\Usuarios;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
+
+    if (app()->isLocal()) {
+        Auth::loginUsingId(1);
+        return to_route('dashboard');
+    }
+    
     return redirect('login');
 });
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/relatorio', Relatorio::class)
-    ->name('relatorio');
+    ->name('relatorio')->lazy();
 
     Route::get('/relatorio/{id}', [Relatorio::class, 'show_visita'])
     ->name('editar-visita');

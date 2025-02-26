@@ -1,4 +1,18 @@
 <div class="p-4">
+
+        <x-filtro-container title="Ações">
+
+        <!-- Botão de busca -->
+        <div class="w-full sm:w-1/3">
+            <button type="button" wire:click="download"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded-lg w-full sm:w-auto">
+                Download
+            </button>
+        </div>
+
+        </x-filtro-container>
+   
+
     <div class="flex flex-col sm:flex-row sm:items-end gap-4">
         <div class="flex-1">
             <x-input-label for="dataIni" :value="__('Data Inicial')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"/>

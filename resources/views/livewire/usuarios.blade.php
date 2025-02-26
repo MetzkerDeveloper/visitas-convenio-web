@@ -100,7 +100,7 @@
                         <td class="px-4 py-2">{{ $user->regiao->name }}</td>
                         <td class="px-4 py-2">{{ $user->name }}</td>
                         <td class="px-4 py-2">{{ $user->nivel_acesso == null ? 'Atualize os dados' : $user->nivel->descricao }}</td>
-                        <td class="px-4 py-2"><livewire:editar-usuario :user="$user" wire:key="edit-user-{{ $user->id }}"/></td>
+                        <td class="px-4 py-2"><livewire:editar-usuario :user="$user" :key="$user->id"/></td>
                     </tr>
                 @empty
                     <tr>
