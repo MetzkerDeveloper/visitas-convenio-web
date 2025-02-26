@@ -69,7 +69,7 @@
                 <div class="flex flex-wrap justify-center gap-4 p-4">
 
                     @forelse ($visitas as $item)
-                        <x-card-visita :visita="$item" route="{{ route('editar-visita', ['id' => $item->id]) }}" :key="{{ $item->id }}" />
+                        <x-card-visita :visita="$item" route="{{ route('editar-visita', ['id' => $item->id]) }}" wire:key="{{ $item->id }}" />
 
                     @empty
                         <div class="text-center w-full">
