@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class Relatorio extends Component
@@ -54,7 +55,7 @@ class Relatorio extends Component
         return view('livewire.editar-visita', ['visita' => $visita]);
     }
 
-    #[Layout("layouts.app")]
+    #[Layout("layouts.app"), On('vista:created')]
     public function render()
     {
         $visitas = $this->getVisitas();

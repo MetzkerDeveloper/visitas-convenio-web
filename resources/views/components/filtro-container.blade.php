@@ -3,7 +3,7 @@
     ])
 
   <!-- Filtros -->
-    <div class="relative mt-4 mb-4 px-8">
+    <div  {{ $attributes->merge(['class' => 'relative mt-4 mb-4']) }} >
         <button id="dropdownButton" class="bg-blue-500 text-white px-4 py-2 rounded">
             {{$title}}
         </button>

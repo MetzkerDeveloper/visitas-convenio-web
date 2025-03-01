@@ -1,16 +1,21 @@
 <div class="p-4">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Relatório de Visitas / Comissão') }}
+        </h2>
+    </x-slot>
 
-        <x-filtro-container title="Ações">
+    <x-filtro-container title="Ações" class="px-2">
 
         <!-- Botão de busca -->
         <div class="w-full sm:w-1/3">
             <button type="button" wire:click="download"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded-lg w-full sm:w-auto">
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-lg w-full sm:w-auto">
                 Download
             </button>
         </div>
 
-        </x-filtro-container>
+    </x-filtro-container>
    
 
     <div class="flex flex-col sm:flex-row sm:items-end gap-4">

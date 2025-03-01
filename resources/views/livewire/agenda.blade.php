@@ -4,7 +4,7 @@
             {{ __('Agenda') }}
         </h2>
     </x-slot>
-    <x-filtro-container title="Filtros">
+    <x-filtro-container title="Filtros Agenda" class="px-8">
 
         <!-- Filtro de Promotor -->
         {{-- <div class="w-full sm:w-1/2 lg:w-1/3">

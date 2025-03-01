@@ -14,14 +14,14 @@ Route::get('/', function () {
         Auth::loginUsingId(1);
         return to_route('dashboard');
     }
-    
+
     return redirect('login');
 });
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/relatorio', Relatorio::class)
-    ->name('relatorio')->lazy();
+    ->name('relatorio');
 
     Route::get('/relatorio/{id}', [Relatorio::class, 'show_visita'])
     ->name('editar-visita');

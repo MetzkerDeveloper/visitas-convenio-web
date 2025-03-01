@@ -104,7 +104,7 @@
                     </div>
                     <div>
                         <x-input-label for="observacoes" :value="__('Observações')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"/>
-                        <textarea id="observacoes" name="observacoes" wire:model="form.observation" autocomplete="off" class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3" :value="old('observacoes')"></textarea>
+                        <textarea id="observacoes" name="observacoes" wire:model="form.observation" autocomplete="off" class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3" ></textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('form.observation')" />
                     </div>
                 </div>

@@ -8,11 +8,14 @@ use App\Models\Objetivo;
 use App\Models\Regiao;
 use App\Models\User;
 use App\Models\Visita;
+use App\Traits\Toastify;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class RegistrarVisita extends Component
 {
+    use Toastify; 
+
     public bool $show = false;
 
     public ?User $user = null;
@@ -46,8 +49,10 @@ class RegistrarVisita extends Component
         $data['id_user'] = $this->user->id;
     
         Visita::create($data);
-    
-        return $this->redirect('/relatorio');
+        $this->success('Visita registrada com sucesso!', '/relatorio');
+        $this->dispatch('vista:created');
+        $this->setShow(false);
+        $this->form->reset();
     }
 
 
