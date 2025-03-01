@@ -8,13 +8,18 @@ use App\Models\Objetivo;
 use App\Models\Regiao;
 use App\Models\User;
 use App\Models\Visita;
+use App\Traits\Functions;
+use App\Traits\SweetAlert;
 use App\Traits\Toastify;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class RegistrarVisita extends Component
 {
     use Toastify; 
+    use SweetAlert;
+    use Functions;
 
     public bool $show = false;
 
@@ -42,19 +47,27 @@ class RegistrarVisita extends Component
     }
 
     public function store() {
-        $this->form->validate();
+
+       $this->form->validate();
     
+       $dateIsValid =  $this->validateVisitDate($this->form->date);
+
+       if (!$dateIsValid) {
+            $this->error('Não é possível registrar visita para esta data.!');
+            $this->form->reset();
+            return;
+       }
+
         // Adiciona o user_id ao array de dados
         $data = $this->form->all();
         $data['id_user'] = $this->user->id;
     
         Visita::create($data);
-        $this->success('Visita registrada com sucesso!', '/relatorio');
+        $this->successToast('Visita registrada com sucesso!', '/relatorio');
         $this->dispatch('vista:created');
         $this->setShow(false);
         $this->form->reset();
     }
-
 
     public function render()
     {

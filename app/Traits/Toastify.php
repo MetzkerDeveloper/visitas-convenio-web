@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait Toastify
 {
-    public function success(string $text, $url = ''): void
+    public function successToast(string $text, $url = ''): void
     {
         $this->js("
             Toastify({
@@ -20,7 +20,7 @@ trait Toastify
     ");
     }
 
-    public function error(string $text)
+    public function errorToast(string $text)
     {
         $this->js(
             "

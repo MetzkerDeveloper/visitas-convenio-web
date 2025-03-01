@@ -72,7 +72,7 @@
                 <h2 class="text-base font-semibold">
                     {{$i->promotor->name}}
                 </h2>
-                <p class="text-xs text-gray-500">{{$i->date}}</p>
+                <p class="text-xs text-gray-500">{{\Carbon\Carbon::parse($i->date)->format('d/m/Y')}}</p>
                 <p class="text-xs text-gray-500 mt-6 mb-6">{{$i->city}}</p>
                 <p class="text-xs text-gray-500 flex-1">{{$i->observation}}</p>
             </div>

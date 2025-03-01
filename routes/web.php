@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContratoController;
 use App\Livewire\Agenda;
 use App\Livewire\ComissaoVisitas;
 use App\Livewire\Relatorio;
