@@ -2,12 +2,18 @@
 
 namespace App\Traits;
 
+use App\Models\Parametro;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 trait Functions
 {
+
+
     private function validateVisitDate($visitDate)
     {
+        $paramBloqDia = Parametro::where('id', '=', 2)->first();
+
         $visitDateTime = new DateTime($visitDate);
         $currentDateTime = new DateTime();
     
@@ -29,7 +35,7 @@ trait Functions
             return true;
         }
     
-        // Se a data da visita for do mês passado, só bloqueia se hoje for maior que dia 5
+        // Se a data da visita for do mês passado, só bloqueia Se for maior que dia determinado no parametro, senão permite
         $previousMonth = $currentMonth - 1;
         $previousYear = $currentYear;
     
@@ -39,7 +45,7 @@ trait Functions
         }
     
         if ($visitMonth === $previousMonth && $visitYear === $previousYear) {
-            return $currentDay <= 5; // Se for maior que dia 5, bloqueia, senão permite
+            return $currentDay <= +$paramBloqDia->value; 
         }
     
         

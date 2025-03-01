@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContratoController;
 use App\Livewire\Agenda;
 use App\Livewire\ComissaoVisitas;
+use App\Livewire\Params;
 use App\Livewire\Relatorio;
 use App\Livewire\Usuarios;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/usuarios', Usuarios::class)
     ->name('usuarios');
+
+    Route::get('/parametros', Params::class)
+    ->name('parametros');
 
     Route::get('/comissao', ComissaoVisitas::class)
     ->name('comissao');

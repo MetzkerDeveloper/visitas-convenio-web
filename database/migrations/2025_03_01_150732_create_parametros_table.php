@@ -16,17 +16,27 @@ return new class () extends Migration {
             $table->id();
             $table->string('name');
             $table->string('value');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
-        $parametros = [
+        $parametros[] = [
             'name' => 'COMISSAO VISITAS',
             'value' => '2',
             'description' => 'Valor da comissão por visita',
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
 
-       Parametro::create($parametros);
+        $parametros[] = [
+            'name' => 'BLOQUEIO VISITA',
+            'value' => '5',
+            'description' => 'Bloqueio visita fora do período',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+       Parametro::insert($parametros);
     }
 
     /**
