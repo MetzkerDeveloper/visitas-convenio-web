@@ -28,13 +28,14 @@ class ComissaoVisitas extends Component
                     ->join('users as p', 'v.id_user', '=', 'p.id')
                     ->join('objetivos as o', 'v.id_objective', '=', 'o.id')
                     ->join('regiaos as r', 'v.id_region', '=', 'r.id')
+                    ->join('parametros as param', 'param.id', '=', DB::raw(1))
                     ->select(
                         'p.name as promotor',
                         'r.name as regiao',
                         DB::raw('COUNT(CASE WHEN visitas_convenio_o.id = 1 THEN 1 END) AS captacao'),
                         DB::raw('COUNT(CASE WHEN visitas_convenio_o.id = 2 THEN 1 END) AS loja'),
                         DB::raw('COUNT(CASE WHEN visitas_convenio_o.id = 3 THEN 1 END) AS manutencao'),
-                        DB::raw('(COUNT(visitas_convenio_v.id) * 2) AS total_a_pagar')
+                        DB::raw("(COUNT(visitas_convenio_v.id) * visitas_convenio_param.value) AS total_a_pagar")
                     )
                     ->whereBetween('v.date', [$this->dataIni, $this->dataFim])
                     ->groupBy('p.id', 'p.name', 'r.name')
