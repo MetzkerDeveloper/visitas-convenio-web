@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContratoController;
 use App\Livewire\Agenda;
 use App\Livewire\ComissaoVisitas;
+use App\Livewire\Params;
 use App\Livewire\Relatorio;
 use App\Livewire\Usuarios;
 use Illuminate\Support\Facades\Auth;
@@ -14,14 +16,14 @@ Route::get('/', function () {
         Auth::loginUsingId(1);
         return to_route('dashboard');
     }
-    
+
     return redirect('login');
 });
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/relatorio', Relatorio::class)
-    ->name('relatorio')->lazy();
+    ->name('relatorio');
 
     Route::get('/relatorio/{id}', [Relatorio::class, 'show_visita'])
     ->name('editar-visita');
@@ -38,6 +40,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/usuarios', Usuarios::class)
     ->name('usuarios');
+
+    Route::get('/parametros', Params::class)
+    ->name('parametros');
 
     Route::get('/comissao', ComissaoVisitas::class)
     ->name('comissao');

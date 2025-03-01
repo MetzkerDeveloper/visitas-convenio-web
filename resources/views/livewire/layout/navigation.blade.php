@@ -12,7 +12,7 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/login', navigate: true);
     }
 }; ?>
 
@@ -56,9 +56,13 @@ new class extends Component
                             {{ __('Perfil') }}
                         </x-dropdown-link>
 
-                         @can('isAdmin')
+                        @can('isAdmin')
                             <x-dropdown-link :href="route('usuarios')" wire:navigate>
                                 {{ __('Usuários') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('parametros')" wire:navigate>
+                                {{ __('Parâmetros') }}
                             </x-dropdown-link>
                         @endcan
                         <!-- Authentication -->
@@ -106,6 +110,10 @@ new class extends Component
                 @can('isAdmin')
                     <x-responsive-nav-link :href="route('usuarios')" wire:navigate>
                         {{ __('Usuários') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('parametros')" wire:navigate>
+                        {{ __('Parâmetros') }}
                     </x-responsive-nav-link>
                 @endcan
                 <!-- Authentication -->
