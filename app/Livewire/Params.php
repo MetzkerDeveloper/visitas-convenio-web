@@ -16,10 +16,10 @@ class Params extends Component
 
     public $valores = [];
 
-    
-
     public function mount(){
         
+        $this->authorize('isAdmin');
+
         $this->parametros = Parametro::all();
 
         foreach ($this->parametros as $parametro) {
