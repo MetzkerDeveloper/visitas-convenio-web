@@ -3,18 +3,13 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\CadastroUsuarioForm;
-use App\Models\Nivel;
-use App\Models\Regiao;
-use App\Models\User;
+use App\Models\{Nivel, Regiao, User};
 use Illuminate\Support\Facades\Hash;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\On;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\{Layout, On};
+use Livewire\{Component, WithPagination};
 
 class Usuarios extends Component
 {
-
     use WithPagination;
 
     public bool $show = false;
@@ -25,14 +20,13 @@ class Usuarios extends Component
 
     public $regioes;
 
-
     public function mount(): void
     {
 
         $this->authorize('isAdmin');
 
         $this->niveis  = Nivel::all();
-        $this->regioes  = Regiao::all();
+        $this->regioes = Regiao::all();
     }
 
     public function setShow($param): void
@@ -40,21 +34,23 @@ class Usuarios extends Component
         $this->show = $param;
     }
 
-    public function getUser(){
+    public function getUser()
+    {
         return User::paginate(10);
     }
 
-    public function store(){
+    public function store()
+    {
 
         $this->form->validate();
 
         $data = $this->form->all();
 
         $user = [
-            'id_region' => $data['id_region'],
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'id_region'    => $data['id_region'],
+            'name'         => $data['name'],
+            'email'        => $data['email'],
+            'password'     => Hash::make($data['password']),
             'nivel_acesso' => $data['nivel_acesso'],
         ];
 
@@ -69,6 +65,7 @@ class Usuarios extends Component
     public function render()
     {
         $users = $this->getUser();
+
         return view('livewire.usuarios', compact('users'));
     }
 }

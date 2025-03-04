@@ -4,10 +4,8 @@ namespace App\Livewire;
 
 use App\Exports\ComissoesExport;
 use App\Traits\SweetAlert;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\{DB};
+use Livewire\Attributes\{Layout, Validate};
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -16,11 +14,10 @@ class ComissaoVisitas extends Component
     use SweetAlert;
 
     #[Validate('required')]
-    public $dataIni ;
+    public $dataIni;
 
     #[Validate('required')]
     public $dataFim;
-
 
     public function getComissao()
     {
@@ -50,12 +47,14 @@ class ComissaoVisitas extends Component
 
     public function download()
     {
-        if(!$this->dataIni || !$this->dataFim){
+        if (!$this->dataIni || !$this->dataFim) {
             $this->error('Preencha as datas iniciais e finais para baixar o relatório! corretamente');
+
             return;
         }
 
-        $fileName = "comissao_de_".$this->dataIni ."_a_".$this->dataFim. ".xlsx";
+        $fileName = "comissao_de_" . $this->dataIni . "_a_" . $this->dataFim . ".xlsx";
+
         return Excel::download(new ComissoesExport($this->dataIni, $this->dataFim), $fileName);
     }
 
@@ -63,6 +62,7 @@ class ComissaoVisitas extends Component
     public function render()
     {
         $comissoes = $this->getComissao();
+
         return view('livewire.comissao-visitas', compact('comissoes'));
     }
 }

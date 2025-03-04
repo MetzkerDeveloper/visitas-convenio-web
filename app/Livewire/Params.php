@@ -9,15 +9,15 @@ use Livewire\Component;
 
 class Params extends Component
 {
-
     use SweetAlert;
 
     public $parametros;
 
     public $valores = [];
 
-    public function mount(){
-        
+    public function mount()
+    {
+
         $this->authorize('isAdmin');
 
         $this->parametros = Parametro::all();
@@ -27,21 +27,21 @@ class Params extends Component
         }
     }
 
-
-    public function update($id){
+    public function update($id)
+    {
 
         $parametro = Parametro::find($id);
-        
+
         if ($parametro) {
             $parametro->value = $this->valores[$id];
             $parametro->save();
         }
 
-         // Atualiza a lista de parâmetros (opcional)
-         $this->parametros = Parametro::all();
-         
-         $this->success("Valor do parametro $parametro->name, foi atualizado com sucesso!");
-         
+        // Atualiza a lista de parâmetros (opcional)
+        $this->parametros = Parametro::all();
+
+        $this->success("Valor do parametro $parametro->name, foi atualizado com sucesso!");
+
     }
 
     #[Layout('layouts.app')]

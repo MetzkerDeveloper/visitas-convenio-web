@@ -13,7 +13,8 @@ use Illuminate\Validation\Rules;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -46,35 +47,35 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
-        public function rules()
-        {
-            return [
-                'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-            ];
-        }
+    public function rules()
+    {
+        return [
+            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+        ];
+    }
 
-        // Caso o User pertença a uma Regiao (chave estrangeira no User)
-        public function regiao(): BelongsTo
-        {
-            return $this->belongsTo(Regiao::class, 'id_region');
-        }
+    // Caso o User pertença a uma Regiao (chave estrangeira no User)
+    public function regiao(): BelongsTo
+    {
+        return $this->belongsTo(Regiao::class, 'id_region');
+    }
 
-        public function nivel(): BelongsTo
-        {
-            return $this->belongsTo(Nivel::class, 'nivel_acesso');
-        }
+    public function nivel(): BelongsTo
+    {
+        return $this->belongsTo(Nivel::class, 'nivel_acesso');
+    }
 
-        public function visita(): HasMany
-        {
-            return $this->hasMany(Visita::class, 'id_user');
-        }
+    public function visita(): HasMany
+    {
+        return $this->hasMany(Visita::class, 'id_user');
+    }
 
-        public function agenda(): HasMany
-        {
-            return $this->hasMany(Agenda::class, 'id_user');
-        }
+    public function agenda(): HasMany
+    {
+        return $this->hasMany(Agenda::class, 'id_user');
+    }
 }

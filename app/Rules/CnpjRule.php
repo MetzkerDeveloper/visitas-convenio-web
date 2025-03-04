@@ -14,7 +14,7 @@ class CnpjRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! $this->isValidCnpj($value)) {
+        if (!$this->isValidCnpj($value)) {
             $fail('O :attribute é inválido.');
         }
     }
@@ -35,16 +35,18 @@ class CnpjRule implements ValidationRule
         }
 
         // Validate the first check digit
-        $sum = 0;
+        $sum    = 0;
         $weight = 5;
+
         for ($i = 0; $i < 12; $i++) {
             $sum += intval($cnpj[$i]) * $weight;
             $weight--;
+
             if ($weight < 2) {
                 $weight = 9;
             }
         }
-        $mod = $sum % 11;
+        $mod        = $sum % 11;
         $firstDigit = $mod < 2 ? 0 : 11 - $mod;
 
         if ($firstDigit != intval($cnpj[12])) {
@@ -52,16 +54,18 @@ class CnpjRule implements ValidationRule
         }
 
         // Validate the second check digit
-        $sum = 0;
+        $sum    = 0;
         $weight = 6;
+
         for ($i = 0; $i < 13; $i++) {
             $sum += intval($cnpj[$i]) * $weight;
             $weight--;
+
             if ($weight < 2) {
                 $weight = 9;
             }
         }
-        $mod = $sum % 11;
+        $mod         = $sum % 11;
         $secondDigit = $mod < 2 ? 0 : 11 - $mod;
 
         if ($secondDigit != intval($cnpj[13])) {

@@ -2,48 +2,46 @@
 
 namespace App\Livewire;
 
-use App\Models\Objetivo;
-use App\Models\Regiao;
-use App\Models\Visita;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
+use App\Models\{Objetivo, Regiao, Visita};
 use Illuminate\Database\Eloquent\Builder;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\On;
-use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\{Layout, On};
+use Livewire\{Component, WithPagination};
 
 class Relatorio extends Component
 {
     use WithPagination;
 
     public $objetivos = [];
+
     public $objetivo = null;
+
     public $regioes = [];
+
     public $regiao = null;
+
     public $data_ini = null;
 
     public $data_fim = null;
-    
+
     public bool $show = false;
 
     public function mount()
     {
         $this->objetivos = Objetivo::all();
-        $this->regioes = Regiao::all();
+        $this->regioes   = Regiao::all();
     }
 
     public function getVisitas()
     {
         $visitas = Visita::query()->with(['objetivo', 'regiao', 'promotor'])
-            ->when(!$this->data_ini && !$this->data_fim, fn (Builder $q) => $q->where('date', 'like','%' . date('Y-m') . '%' ))
+            ->when(!$this->data_ini && !$this->data_fim, fn (Builder $q) => $q->where('date', 'like', '%' . date('Y-m') . '%'))
             ->when($this->regiao, fn (Builder $q) => $q->where('id_region', '=', $this->regiao))
             ->when($this->objetivo, fn (Builder $q) => $q->where('id_objective', '=', $this->objetivo));
-            
 
-        if ($this->data_ini && $this->data_fim) { 
+        if ($this->data_ini && $this->data_fim) {
             $visitas->whereBetween('date', [$this->data_ini, $this->data_fim]);
         }
-
 
         if (Auth::user()->nivel_acesso == 3) {
             $visitas->where('id_user', Auth::user()->id);
@@ -68,6 +66,7 @@ class Relatorio extends Component
     public function render()
     {
         $visitas = $this->getVisitas();
+
         return view('livewire.relatorio', compact('visitas'));
     }
 

@@ -1,19 +1,13 @@
 <?php
 
-use App\Http\Controllers\ContratoController;
-use App\Livewire\Agenda;
-use App\Livewire\ComissaoVisitas;
-use App\Livewire\Params;
-use App\Livewire\Relatorio;
-use App\Livewire\Usuarios;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
+use App\Livewire\{Agenda, ComissaoVisitas, Params, Relatorio, Usuarios};
+use Illuminate\Support\Facades\{Auth, Route};
 
 Route::get('/', function () {
 
     if (app()->isLocal()) {
         Auth::loginUsingId(1);
+
         return to_route('dashboard');
     }
 
@@ -49,5 +43,4 @@ Route::middleware('auth')->group(function () {
 
 });
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

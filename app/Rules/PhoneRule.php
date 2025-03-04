@@ -14,7 +14,7 @@ class PhoneRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! $this->isValidPhone($value)) {
+        if (!$this->isValidPhone($value)) {
             $fail('O telefone informado é inválido. O formato deve ser: (DDD) XXXX-XXXX ou (DDD) XXXXX-XXXX. Somente números, sem pontos ou traços.');
         }
     }
@@ -23,9 +23,10 @@ class PhoneRule implements ValidationRule
     {
         // Remove non-digit characters and whitespace
         $phone = preg_replace('/\D/', '', $phone);
-        
+
         //regex test
         $regex = '/^[1-9]{2}(?:[2-8]|9[0-9])[0-9]{7,8}$/';
+
         return preg_match($regex, $phone);
 
     }

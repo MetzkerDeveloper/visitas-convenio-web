@@ -2,9 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Nivel;
-use App\Models\Regiao;
-use App\Models\User;
+use App\Models\{Nivel, Regiao, User};
 use Livewire\Component;
 
 class EditarUsuario extends Component
@@ -14,7 +12,9 @@ class EditarUsuario extends Component
     public ?User $user = null;
 
     public ?string $nome = null;
+
     public ?string $nivel = null;
+
     public ?string $regiao = null;
 
     public $niveis;
@@ -26,12 +26,12 @@ class EditarUsuario extends Component
 
         $this->authorize('isAdmin');
 
-        $this->user     = $user;
-        $this->nome     = $this->user->name;
-        $this->nivel    = $this->user->nivel_acesso;
-        $this->regiao    = $this->user->id_region;
+        $this->user    = $user;
+        $this->nome    = $this->user->name;
+        $this->nivel   = $this->user->nivel_acesso;
+        $this->regiao  = $this->user->id_region;
         $this->niveis  = Nivel::all();
-        $this->regioes  = Regiao::all();
+        $this->regioes = Regiao::all();
     }
 
     public function setShow($param): void
@@ -42,9 +42,8 @@ class EditarUsuario extends Component
     public function edit()
     {
 
-
         $this->user->nivel_acesso = $this->nivel;
-        $this->user->id_region = $this->regiao;
+        $this->user->id_region    = $this->regiao;
 
         $this->user->save();
 
