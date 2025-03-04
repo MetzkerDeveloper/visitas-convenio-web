@@ -3,6 +3,8 @@
 namespace App\Livewire\Forms;
 
 use App\Models\User;
+use App\Rules\CnpjRule;
+use App\Rules\PhoneRule;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -29,7 +31,7 @@ class RegistraVisitaForm extends Form
     #[Validate('required')]
     public $enterprise;
 
-    #[Validate('required')]
+    #[Validate(['required',new CnpjRule])]
     public $cnpj;
 
     #[Validate('required')]
@@ -38,7 +40,8 @@ class RegistraVisitaForm extends Form
     #[Validate('required')]
     public $responsable;
 
-    #[Validate('required')]
+    #[Validate(['required', new PhoneRule],
+        attribute: ['company_phone.*' => 'telefone'])]
     public $company_phone;
 
     #[Validate('required')]

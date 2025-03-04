@@ -79,7 +79,14 @@
                     </div>
                     <div>
                         <x-input-label for="cnpj_empresa" :value="__('CNPJ Empresa')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"/>
-                        <x-text-input id="cnpj_empresa" name="cnpj_empresa" wire:model='form.cnpj' autocomplete="off" class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3" :value="old('empresa')" />
+                        <x-text-input   id="cnpj_empresa" 
+                                        name="cnpj_empresa" 
+                                        wire:model='form.cnpj' 
+                                        autocomplete="off" 
+                                        class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3" 
+                                        :value="old('empresa')" 
+                                        oninput="mascaraCnpj(this)" 
+                        />
                         <x-input-error class="mt-2" :messages="$errors->get('form.cnpj')" />
                     </div>
                     <div>
@@ -94,7 +101,14 @@
                     </div>
                     <div>
                         <x-input-label for="telefone_empresa" :value="__('Telefone Empresa')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"/>
-                        <x-text-input id="telefone_empresa" name="telefone_empresa" wire:model='form.company_phone' autocomplete="off" class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3" :value="old('empresa')" />
+                        <x-text-input id="telefone_empresa" 
+                                            name="telefone_empresa" 
+                                            wire:model='form.company_phone' 
+                                            autocomplete="off" 
+                                            class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3" 
+                                            :value="old('form.company_phone')"
+                                            oninput="mascaraTelefone(this)"
+                        />
                         <x-input-error class="mt-2" :messages="$errors->get('form.company_phone')" />
                     </div>
                     <div>
@@ -118,3 +132,60 @@
     </x-modal>
 
 </div>
+
+<script>
+
+    function mascaraTelefone(input) {
+        
+        let numeros = input.value.replace(/\D/g, '');
+        let tamanho = numeros.length;
+        let formattedNumber = '';
+
+        if (tamanho > 0) {
+            formattedNumber = '(' + numeros.substring(0, 2);
+            if (tamanho > 2) {
+                formattedNumber += ') ';
+                if (numeros.substring(2, 3) === '9' && tamanho > 10) {
+                    formattedNumber += numeros.substring(2, 7) + '-' + numeros.substring(7, 11);
+
+                } else if(numeros.substring(2, 3) !== '9' && tamanho > 9) {
+                    formattedNumber += numeros.substring(2, 6) + '-' + numeros.substring(6, 10);
+                } else {
+                    formattedNumber += numeros.substring(2);
+                }
+
+            }else {
+                formattedNumber += ')';
+            }
+
+
+        }
+        input.value = formattedNumber;
+    }
+
+
+    function mascaraCnpj(input) {
+
+        let cnpj = input.value.replace(/\D/g, '');
+        let tamanho = cnpj.length;
+
+        if (tamanho > 2) {
+            cnpj = cnpj.substring(0, 2) + '.' + cnpj.substring(2);
+        }
+
+        if (tamanho > 5) {
+            cnpj = cnpj.substring(0, 6) + '.' + cnpj.substring(6);
+        }
+
+        if (tamanho > 8) {
+            cnpj = cnpj.substring(0, 10) + '/' + cnpj.substring(10);
+        }
+
+        if (tamanho > 12) {
+            cnpj = cnpj.substring(0, 15) + '-' + cnpj.substring(15, 17);
+        }
+
+        input.value = cnpj;
+    }
+
+</script>
