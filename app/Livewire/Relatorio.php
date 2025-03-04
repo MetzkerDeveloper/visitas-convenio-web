@@ -20,7 +20,10 @@ class Relatorio extends Component
     public $objetivo = null;
     public $regioes = [];
     public $regiao = null;
-    public $data = null;
+    public $data_ini = null;
+
+    public $data_fim = null;
+    
     public bool $show = false;
 
     public function mount()
@@ -32,9 +35,15 @@ class Relatorio extends Component
     public function getVisitas()
     {
         $visitas = Visita::query()->with(['objetivo', 'regiao', 'promotor'])
+            ->when(!$this->data_ini && !$this->data_fim, fn (Builder $q) => $q->where('date', 'like','%' . date('Y-m') . '%' ))
             ->when($this->regiao, fn (Builder $q) => $q->where('id_region', '=', $this->regiao))
-            ->when($this->objetivo, fn (Builder $q) => $q->where('id_objective', '=', $this->objetivo))
-            ->when($this->data, fn (Builder $q) => $q->where('date', '=', $this->data));
+            ->when($this->objetivo, fn (Builder $q) => $q->where('id_objective', '=', $this->objetivo));
+            
+
+        if ($this->data_ini && $this->data_fim) { 
+            $visitas->whereBetween('date', [$this->data_ini, $this->data_fim]);
+        }
+
 
         if (Auth::user()->nivel_acesso == 3) {
             $visitas->where('id_user', Auth::user()->id);
