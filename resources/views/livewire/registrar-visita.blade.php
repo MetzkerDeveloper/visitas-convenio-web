@@ -19,6 +19,7 @@
             </header>
 
             <form wire:submit.prevent="store" class="w-full space-y-4">
+                @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="regiao" :value="__('Região')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"/>
@@ -123,6 +124,8 @@
                     </div>
                 </div>
 
+                {{-- <input type="hidden" id="location" name="location" wire:model="form.location"> --}}
+
                 <div class="flex justify-end gap-2 mt-4">
                     <x-secondary-button wire:click="setShow(false)">Cancelar</x-secondary-button>
                     <x-primary-button type="submit">Registrar</x-primary-button>
@@ -133,8 +136,25 @@
 
 </div>
 
+@script
 <script>
 
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            locationString = latitude + ',' + longitude;
+            
+            $wire.set('form.location', locationString, live = true)
+        },
+        (error) => {
+            console.error('Error getting location:', error);
+        });
+    }
+</script>
+@endscript
+
+<script>
     function mascaraTelefone(input) {
         
         let numeros = input.value.replace(/\D/g, '');

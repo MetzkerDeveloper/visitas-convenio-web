@@ -48,4 +48,6 @@ class RegistraVisitaForm extends Form
     public $observation;
 
     public $code_conv;
+
+    public $location;
 }
