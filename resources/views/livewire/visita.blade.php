@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center justify-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Relatório de Visitas') }}
+                {{ __('Visitas') }}
             </h2>
             <livewire:registrar-visita />
         </div>

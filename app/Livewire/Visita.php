@@ -2,13 +2,13 @@
 
 namespace App\Livewire;
 
-use App\Models\{Objetivo, Regiao, Visita};
+use App\Models\{Objetivo, Regiao, Visita as VisitaModel};
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\{Layout, On};
 use Livewire\{Component, WithPagination};
 
-class Relatorio extends Component
+class Visita extends Component
 {
     use WithPagination;
 
@@ -34,7 +34,7 @@ class Relatorio extends Component
 
     public function getVisitas()
     {
-        $visitas = Visita::query()->with(['objetivo', 'regiao', 'promotor'])
+        $visitas = VisitaModel::query()->with(['objetivo', 'regiao', 'promotor'])
             ->when(!$this->data_ini && !$this->data_fim, fn (Builder $q) => $q->where('date', 'like', '%' . date('Y-m') . '%'))
             ->when($this->regiao, fn (Builder $q) => $q->where('id_region', '=', $this->regiao))
             ->when($this->objetivo, fn (Builder $q) => $q->where('id_objective', '=', $this->objetivo));
@@ -57,7 +57,7 @@ class Relatorio extends Component
 
     public function show_visita($id)
     {
-        $visita = Visita::query()->with(['objetivo', 'regiao', 'promotor'])->find($id);
+        $visita = VisitaModel::query()->with(['objetivo', 'regiao', 'promotor'])->find($id);
 
         return view('livewire.editar-visita', ['visita' => $visita]);
     }
@@ -67,7 +67,7 @@ class Relatorio extends Component
     {
         $visitas = $this->getVisitas();
 
-        return view('livewire.relatorio', compact('visitas'));
+        return view('livewire.visita', compact('visitas'));
     }
 
 }

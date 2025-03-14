@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\{Agenda, ComissaoVisitas, Params, Relatorio, Usuarios};
+use App\Livewire\{Agenda, ComissaoVisitas, Params, Visita, Usuarios};
 use Illuminate\Support\Facades\{Auth, Route};
 
 Route::get('/', function () {
@@ -16,10 +16,10 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/visitas', Relatorio::class)
+    Route::get('/visitas', Visita::class)
     ->name('visitas');
 
-    Route::get('/visita/{id}', [Relatorio::class, 'show_visita'])
+    Route::get('/visita/{id}', [Visita::class, 'show_visita'])
     ->name('editar-visita');
 
     Route::view('dashboard', 'dashboard')
