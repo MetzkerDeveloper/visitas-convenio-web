@@ -143,7 +143,7 @@
         navigator.geolocation.getCurrentPosition((position) => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-            locationString = latitude + ',' + longitude;
+            locationString = longitude + ',' + latitude;
             
             $wire.set('form.location', locationString, live = true)
         },

@@ -16,10 +16,10 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/relatorio', Relatorio::class)
-    ->name('relatorio');
+    Route::get('/visitas', Relatorio::class)
+    ->name('visitas');
 
-    Route::get('/relatorio/{id}', [Relatorio::class, 'show_visita'])
+    Route::get('/visita/{id}', [Relatorio::class, 'show_visita'])
     ->name('editar-visita');
 
     Route::view('dashboard', 'dashboard')
