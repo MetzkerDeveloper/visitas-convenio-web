@@ -2,7 +2,16 @@
 
 use App\Livewire\{Agenda, ComissaoVisitas, Params, Visita, Usuarios};
 use Illuminate\Support\Facades\{Auth, Route};
+use Livewire\Livewire;
 
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('visitas-convenio/livewire/update', $handle);
+ });
+ 
+ Livewire::setScriptRoute(function ($handle) {
+  return Route::get('visitas-convenio/livewire/livewire.js', $handle);
+ });
+ 
 Route::get('/', function () {
 
     if (app()->isLocal()) {
@@ -11,7 +20,7 @@ Route::get('/', function () {
         return to_route('dashboard');
     }
 
-    return redirect('login');
+    return to_route('login');
 });
 
 Route::middleware('auth')->group(function () {
