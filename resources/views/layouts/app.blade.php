@@ -20,7 +20,7 @@
         
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
+	@livewireStyles
         @livewireScripts
     </head>
     <body class="font-sans antialiased">
@@ -40,7 +40,8 @@
             <main>
                 {{ $slot }}
             </main>
-        </div>
+	</div>
+ 	@livewireScriptConfig
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </body>

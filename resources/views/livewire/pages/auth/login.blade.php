@@ -12,15 +12,16 @@ new #[Layout('layouts.guest')] class extends Component
     /**
      * Handle an incoming authentication request.
      */
-    public function login(): void
+    public function login()
     {
         $this->validate();
 
         $this->form->authenticate();
 
         Session::regenerate();
-
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+	
+	 return redirect()->route('dashboard');
+       // $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 }; ?>
 
