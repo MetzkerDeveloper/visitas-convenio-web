@@ -65,6 +65,13 @@ new class extends Component
                             <x-dropdown-link :href="route('parametros')" wire:navigate>
                                 {{ __('Parâmetros') }}
                             </x-dropdown-link>
+                            <hr>
+                                <p class="text-center w-full p-2">{{ __('Relatórios') }} <hr></p>
+                            
+                            <x-dropdown-link :href="route('cidade-visitada')" wire:navigate>
+                                {{ __('Cidades Visitadas') }}
+                            </x-dropdown-link>
+                            <hr>
                         @endcan
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">

@@ -1,26 +1,19 @@
 <?php
 
-use App\Livewire\{Agenda, ComissaoVisitas, Params, Visita, Usuarios};
+use App\Livewire\{Agenda, CidadeVisita, ComissaoVisitas, Params, Visita, Usuarios};
 use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
 
 
-Livewire::setUpdateRoute(function ($handle) {
-  return Route::post('visitas-convenio/livewire/update', $handle);
-});
-
-Livewire::setScriptRoute(function ($handle) {
- return Route::get('visitas-convenio/livewire/livewire.js', $handle);
-});
-
-
-Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('visitas-convenio/livewire/update', $handle);
- });
- 
- Livewire::setScriptRoute(function ($handle) {
-  return Route::get('visitas-convenio/livewire/livewire.js', $handle);
- });
+if(env('APP_ENV') !== 'local') {
+    Livewire::setUpdateRoute(function ($handle) {
+        return Route::post('visitas-convenio/livewire/update', $handle);
+    });
+     
+    Livewire::setScriptRoute(function ($handle) {
+      return Route::get('visitas-convenio/livewire/livewire.js', $handle);
+    });
+}
  
 Route::get('/', function () {
 
@@ -59,6 +52,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/comissao', ComissaoVisitas::class)
     ->name('comissao');
+
+    Route::get('/cidade-visitada', CidadeVisita::class)
+    ->name('cidade-visitada');
 
 });
 
