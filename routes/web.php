@@ -4,6 +4,16 @@ use App\Livewire\{Agenda, ComissaoVisitas, Params, Visita, Usuarios};
 use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
 
+
+Livewire::setUpdateRoute(function ($handle) {
+  return Route::post('visitas-convenio/livewire/update', $handle);
+});
+
+Livewire::setScriptRoute(function ($handle) {
+ return Route::get('visitas-convenio/livewire/livewire.js', $handle);
+});
+
+
 Livewire::setUpdateRoute(function ($handle) {
     return Route::post('visitas-convenio/livewire/update', $handle);
  });
