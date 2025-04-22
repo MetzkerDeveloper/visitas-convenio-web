@@ -31,7 +31,7 @@
                             <img src="{{asset('assets/images/comissao.png')}}" alt="Combustível" class="w-20 h-20">
                             <p class="mt-2 font-semibold text-center">COMISSÃO VISITAS</p>
                         </div>
-		    </x-nav-link>
+		            </x-nav-link>
 
                     @endcan
    
