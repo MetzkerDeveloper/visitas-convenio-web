@@ -59,7 +59,7 @@ class Agenda extends Component
 
         Agenda_de_Visita::create($data);
 
-        return $this->redirect('/agenda');
+        return $this->redirectRoute('agenda');
     }
 
     #[Layout('layouts.app')]

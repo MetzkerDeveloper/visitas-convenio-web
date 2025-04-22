@@ -3,8 +3,8 @@
         Options -MultiViews -Indexes
     </IfModule>
     
-    RewriteEngine On
-    RewriteBase /visitas-convenio/
+     RewriteEngine On
+     RewriteBase /visitas-convenio/
     
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

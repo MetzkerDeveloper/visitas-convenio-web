@@ -6,7 +6,7 @@ use Livewire\Livewire;
 
 
 Livewire::setUpdateRoute(function ($handle) {
-   return Route::post('visitas-convenio/livewire/update', $handle);
+  return Route::post('visitas-convenio/livewire/update', $handle);
 });
 
 Livewire::setScriptRoute(function ($handle) {
