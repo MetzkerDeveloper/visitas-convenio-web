@@ -3,8 +3,7 @@
 use App\Models\Parametro;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\{Schema};
 
 return new class () extends Migration {
     /**
@@ -21,22 +20,22 @@ return new class () extends Migration {
         });
 
         $parametros[] = [
-            'name' => 'COMISSAO VISITAS',
-            'value' => '2',
+            'name'        => 'COMISSAO VISITAS',
+            'value'       => '2',
             'description' => 'Valor da comissão por visita',
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at'  => now(),
+            'updated_at'  => now(),
         ];
 
         $parametros[] = [
-            'name' => 'BLOQUEIO VISITA',
-            'value' => '5',
+            'name'        => 'BLOQUEIO VISITA',
+            'value'       => '5',
             'description' => 'Bloqueio visita fora do período',
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at'  => now(),
+            'updated_at'  => now(),
         ];
 
-       Parametro::insert($parametros);
+        Parametro::insert($parametros);
     }
 
     /**

@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'id_region' => 1,
-            'name' => 'Waleriano Metzker',
-            'email' => 'waleriano.magalhaes@farmaciaindiana.com.br',
+            'id_region'    => 1,
+            'name'         => 'Waleriano Metzker',
+            'email'        => 'waleriano.magalhaes@farmaciaindiana.com.br',
             'nivel_acesso' => 1,
-            'password'=> Hash::make('admin2025') 
+            'password'     => Hash::make('admin2025'),
         ]);
     }
 }

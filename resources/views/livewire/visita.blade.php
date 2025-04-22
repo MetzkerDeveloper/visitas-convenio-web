@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center justify-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Relatório de Visitas') }}
+                {{ __('Visitas') }}
             </h2>
             <livewire:registrar-visita />
         </div>
@@ -38,12 +38,19 @@
 
        <!-- Filtro de Data -->
        <div class="w-full sm:w-1/2 lg:w-1/3">
-          <label for="data" class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-1">
-                       Data
+          <label for="data_ini" class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-1">
+                       Data Inicial
            </label>
-           <input type="date" id="data" wire:model="data"
+           <input type="date" id="data_ini" wire:model="data_ini"
                        class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-3 dark:bg-gray-700 dark:border-gray-600">
        </div>
+       <div class="w-full sm:w-1/2 lg:w-1/3">
+        <label for="data_fim" class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-1">
+                     Data Final
+         </label>
+         <input type="date" id="data_fim" wire:model="data_fim"
+                     class="w-full bg-gray-50 border border-gray-300 rounded-lg py-2 px-3 dark:bg-gray-700 dark:border-gray-600">
+     </div>
 
        <!-- Botão de busca -->
        <div class="w-full sm:w-1/3">

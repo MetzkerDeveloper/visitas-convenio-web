@@ -2,14 +2,11 @@
 
 namespace App\Exports;
 
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings};
 
 class ComissoesExport implements FromCollection, WithHeadings
 {
-
     private $dataIni;
 
     private $dataFim;
@@ -28,7 +25,7 @@ class ComissoesExport implements FromCollection, WithHeadings
             'captacao',
             'loja',
             'manutencao',
-            'total_a_pagar'
+            'total_a_pagar',
         ];
     }
 

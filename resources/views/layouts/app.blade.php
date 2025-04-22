@@ -14,9 +14,13 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+        <link rel="stylesheet" href="https://unpkg.com/@maptiler/sdk@1.0.0/dist/maptiler-sdk.css">
+
+        <script src="https://unpkg.com/@maptiler/sdk@1.0.0/dist/maptiler-sdk.umd.min.js"></script>
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
+	@livewireStyles
         @livewireScripts
     </head>
     <body class="font-sans antialiased">
@@ -36,7 +40,8 @@
             <main>
                 {{ $slot }}
             </main>
-        </div>
+	</div>
+ 	@livewireScriptConfig
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </body>

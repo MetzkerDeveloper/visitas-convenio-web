@@ -1,31 +1,36 @@
 <?php
 
-use App\Http\Controllers\ContratoController;
-use App\Livewire\Agenda;
-use App\Livewire\ComissaoVisitas;
-use App\Livewire\Params;
-use App\Livewire\Relatorio;
-use App\Livewire\Usuarios;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
+use App\Livewire\{Agenda, ComissaoVisitas, Params, Visita, Usuarios};
+use Illuminate\Support\Facades\{Auth, Route};
+use Livewire\Livewire;
+
+
+Livewire::setUpdateRoute(function ($handle) {
+  return Route::post('visitas-convenio/livewire/update', $handle);
+});
+
+Livewire::setScriptRoute(function ($handle) {
+ return Route::get('visitas-convenio/livewire/livewire.js', $handle);
+});
+
 
 Route::get('/', function () {
 
     if (app()->isLocal()) {
         Auth::loginUsingId(1);
+
         return to_route('dashboard');
     }
 
-    return redirect('login');
+    return to_route('login');
 });
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/relatorio', Relatorio::class)
-    ->name('relatorio');
+    Route::get('/visitas', Visita::class)
+    ->name('visitas');
 
-    Route::get('/relatorio/{id}', [Relatorio::class, 'show_visita'])
+    Route::get('/visita/{id}', [Visita::class, 'show_visita'])
     ->name('editar-visita');
 
     Route::view('dashboard', 'dashboard')
@@ -49,5 +54,4 @@ Route::middleware('auth')->group(function () {
 
 });
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

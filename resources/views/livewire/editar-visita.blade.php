@@ -96,7 +96,34 @@
                         </div>
                     </div>
                 </div>
+                @can('isAdmin')
+                    <div id="map" style="width: 100%; height: 250px;"></div>
+                @endcan
             </div>
         </div>
     </div>
+
+    <script>
+    
+      maptilersdk.config.apiKey='{{ env('MAPS_APIKEY')}}'; // Pegue um API Key grátis no site deles
+      
+      var cords = '{{ $visita->location }}';
+        cords = cords.split(',');
+        
+      var map = new maptilersdk.Map({
+       container: 'map',
+       style: maptilersdk.MapStyle.STREETS, 
+       center: [cords[0],cords[1]], 
+       zoom: 12
+     });
+    
+       map.on('load', function () {
+       // Adiciona um Marker simples na localização
+       new maptilersdk.Marker({ color: "red" }) 
+         .setLngLat([cords[0],cords[1]]) 
+         .addTo(map);
+     });
+    </script>
+
 </x-app-layout>
+

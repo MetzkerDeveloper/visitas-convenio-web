@@ -7,7 +7,6 @@ use Livewire\Form;
 
 class AgendaVisitaForm extends Form
 {
-
     #[Validate('required')]
     public $city;
 
