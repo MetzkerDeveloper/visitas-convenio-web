@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Relatorios;
 
 use App\Exports\ComissoesExport;
 use App\Traits\SweetAlert;
@@ -63,6 +63,6 @@ class ComissaoVisitas extends Component
     {
         $comissoes = $this->getComissao();
 
-        return view('livewire.comissao-visitas', compact('comissoes'));
+        return view('livewire.relatorios.comissao-visitas', compact('comissoes'));
     }
 }
