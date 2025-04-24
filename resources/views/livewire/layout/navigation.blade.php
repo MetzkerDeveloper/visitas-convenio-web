@@ -134,9 +134,9 @@ new class extends Component
                         {{ __('Cidades Visitadas') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-link :href="route('recorrencia-visitas')" wire:navigate>
+                    <x-responsive-nav-link :href="route('recorrencia-visitas')" wire:navigate>
                         {{ __('Recorrência Visitas') }}
-                    </x-responsive-link>
+                    </x-responsive-nav-link>
                 @endcan
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
