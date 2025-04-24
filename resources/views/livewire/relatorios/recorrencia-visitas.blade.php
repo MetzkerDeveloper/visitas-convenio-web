@@ -28,6 +28,16 @@
         </select>
         <x-input-error class="mt-2" :messages="$errors->get('meses')" />
     </div>
+    <div class="flex-1">
+        <x-input-label for="meses" :value="__('Promotor')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"/>
+        <select id="meses" name="meses" wire:model='promotor' class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3">
+            <option value="">Selecione</option>
+            @foreach ($users as $promotor)
+                <option value="{{ $promotor->id }}">{{ $promotor->name }}</option>
+            @endforeach
+        </select>
+        <x-input-error class="mt-2" :messages="$errors->get('meses')" />
+    </div>
     <div class="sm:w-auto w-full">
         <button type="button" wire:click="pesquisar"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full sm:w-auto">
@@ -46,7 +56,7 @@
                     <th class="px-4 py-2">Empresa</th>
                     <th class="px-4 py-2">Última Visita</th>
                     <th class="px-4 py-2">Qtd. Visitas Período</th>
-                    <th class="px-4 py-2">Visitada Últimos{{ $meses }} Meses</th>
+                    <th class="px-4 py-2">Visitada Últimos {{ $meses }} Meses</th>
                 </tr>
             </thead>
             <tbody class="text-center bg-white">

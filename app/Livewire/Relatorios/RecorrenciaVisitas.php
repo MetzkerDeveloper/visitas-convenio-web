@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Relatorios;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -11,6 +12,14 @@ class RecorrenciaVisitas extends Component
     public $data_ini;
     public $data_fim;
     public $meses;
+    public $users;
+    public $promotor;
+
+    public function mount(){
+        $this->data_ini = now()->startOfMonth()->format('Y-m-d');
+        $this->data_fim = now()->format('Y-m-d');
+        $this->users = User::all();
+    }
 
     public function getRecorrencia()
     {
@@ -35,16 +44,29 @@ class RecorrenciaVisitas extends Component
         FROM visitas_convenio_visitas v
         JOIN visitas_convenio_users p ON p.id = v.id_user
         WHERE v.date BETWEEN ? AND ?
-        GROUP BY v.cnpj, v.id_user, p.name;
         ";
+        if (!empty($this->promotor)) {
+            $sql .= " AND v.id_user = ?";
+        }
+        
+        $sql .= " GROUP BY v.cnpj, v.id_user, p.name;";
+        
 
         $params = [
             $this->data_ini,
             $this->meses,
             $this->data_ini,
-            $this->data_ini,
-            $this->data_fim
         ];
+        
+        if (!empty($this->promotor)) {
+            $params[] = $this->data_ini;
+            $params[] = $this->data_fim;
+            $params[] = $this->promotor;
+        } else {
+            $params[] = $this->data_ini;
+            $params[] = $this->data_fim;
+        }
+        
 
         $recorrencia = DB::select($sql, $params);
 
