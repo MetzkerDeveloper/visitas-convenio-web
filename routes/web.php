@@ -1,7 +1,7 @@
 <?php
 
 use App\Livewire\{Agenda, Params, Visita, Usuarios};
-use App\Livewire\Relatorios\{CidadeVisita, ComissaoVisitas};
+use App\Livewire\Relatorios\{CidadeVisita, ComissaoVisitas, RecorrenciaVisitas};
 use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
 
@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cidade-visitada', CidadeVisita::class)
     ->name('cidade-visitada');
+
+    Route::get('/recorrencia-visitas', RecorrenciaVisitas::class)
+    ->name('recorrencia-visitas');
 
 });
 

@@ -66,11 +66,17 @@ new class extends Component
                                 {{ __('Parâmetros') }}
                             </x-dropdown-link>
                             <hr>
-                                <p class="text-center w-full p-2">{{ __('Relatórios') }} <hr></p>
+                            <p class="text-center w-full p-2">{{ __('Relatórios') }} <hr></p>
                             
                             <x-dropdown-link :href="route('cidade-visitada')" wire:navigate>
                                 {{ __('Cidades Visitadas') }}
                             </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('recorrencia-visitas')" wire:navigate>
+                                {{ __('Recorrência Visitas') }}
+                            </x-dropdown-link>
+
+                            
                             <hr>
                         @endcan
                         <!-- Authentication -->
@@ -123,6 +129,14 @@ new class extends Component
                     <x-responsive-nav-link :href="route('parametros')" wire:navigate>
                         {{ __('Parâmetros') }}
                     </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('cidade-visitada')" wire:navigate>
+                        {{ __('Cidades Visitadas') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-link :href="route('recorrencia-visitas')" wire:navigate>
+                        {{ __('Recorrência Visitas') }}
+                    </x-responsive-link>
                 @endcan
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
