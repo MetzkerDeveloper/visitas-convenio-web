@@ -1,6 +1,7 @@
 <?php
 
-use App\Livewire\{Agenda, CidadeVisita, ComissaoVisitas, Params, Visita, Usuarios};
+use App\Livewire\{Agenda, Params, Visita, Usuarios};
+use App\Livewire\Relatorios\{CidadeVisita, ComissaoVisitas};
 use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
 

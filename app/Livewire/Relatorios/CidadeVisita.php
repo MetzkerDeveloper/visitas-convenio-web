@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Relatorios;
 
 use App\Models\{Objetivo, Regiao, User, Visita};
 use Illuminate\Database\Eloquent\Builder;
@@ -77,6 +77,6 @@ class CidadeVisita extends Component
     {
         $cidadeVisitas = $this->getCidadeVisitada();
 
-        return view('livewire.cidade-visita', compact('cidadeVisitas'));
+        return view('livewire.relatorios.cidade-visita', compact('cidadeVisitas'));
     }
 }
