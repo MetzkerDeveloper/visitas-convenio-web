@@ -13,11 +13,12 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 
         <link rel="stylesheet" href="https://unpkg.com/@maptiler/sdk@1.0.0/dist/maptiler-sdk.css">
 
         <script src="https://unpkg.com/@maptiler/sdk@1.0.0/dist/maptiler-sdk.umd.min.js"></script>
-        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 	@livewireStyles
@@ -30,7 +31,7 @@
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
