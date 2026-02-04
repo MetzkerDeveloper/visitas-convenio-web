@@ -21,6 +21,13 @@ class Agenda extends Component
 
     public $data_fim = null;
 
+    public bool $show = false;
+
+    public function setShow($param): void
+    {
+        $this->show = $param;
+    }
+    
     public function getAgenda()
     {
 
