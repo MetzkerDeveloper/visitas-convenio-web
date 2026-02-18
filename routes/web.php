@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
 
 
-if(env('APP_ENV') !== 'local') {
+/*if(env('APP_ENV') !== 'local') {
     Livewire::setUpdateRoute(function ($handle) {
         return Route::post('visitas-convenio/livewire/update', $handle);
     });
-     
+
     Livewire::setScriptRoute(function ($handle) {
       return Route::get('visitas-convenio/livewire/livewire.js', $handle);
     });
-}
- 
+}*/
+
 Route::get('/', function () {
 
     if (app()->isLocal()) {

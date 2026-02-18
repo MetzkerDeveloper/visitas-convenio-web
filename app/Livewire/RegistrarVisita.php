@@ -61,7 +61,7 @@ class RegistrarVisita extends Component
         $data['id_user'] = $this->user->id;
 
         Visita::create($data);
-        $this->successToast('Visita registrada com sucesso!', '/relatorio');
+        $this->success('Visita registrada com sucesso!');
         $this->dispatch('vista:created');
         $this->setShow(false);
         $this->form->reset();

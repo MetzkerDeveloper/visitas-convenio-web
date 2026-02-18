@@ -8,8 +8,8 @@
     </x-secondary-button>
 
     <!-- Modal Responsivo -->
-    <x-modal name="edit-user" :show="$show" focusable class="z-30">
-        <section class="p-5 max-w-lg mx-auto">
+    <x-modal id="edit-user" name="edit-user" :show="$show" wire="show" focusable class="z-30">
+        <section class="p-5 max-w-lg mx-auto dark:text-gray-600">
             <header class="mb-4">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                     {{ __('Editar Cadastro') }}

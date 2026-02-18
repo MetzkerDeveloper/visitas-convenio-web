@@ -7,7 +7,7 @@
             <livewire:registrar-visita />
         </div>
     </x-slot>
-    <x-filtro-container title="Filtros" class="px-8">
+    <x-filtro-container title="Filtros" class="px-8 dark:text-gray-200">
         <!-- Filtro de Região -->
         <div class="w-full sm:w-1/2 lg:w-1/3">
            <label for="regiao" class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-1">
@@ -70,7 +70,7 @@
    </x-filtro-container>
 
     <!-- Resultados -->
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <div class="flex flex-wrap justify-center gap-4 p-4">

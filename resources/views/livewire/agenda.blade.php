@@ -1,22 +1,22 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-600 leading-tight dark:text-gray-300">
             {{ __('Agenda') }}
         </h2>
     </x-slot>
     <div class="flex flex-row items-center mt-4 w-full gap-2 px-8">
         <!-- Botão de Agendamento -->
-        <x-primary-button wire:click="setShow(true)" class="bg-blue-500 px-4 py-3 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg order-last sm:order-first">
+        <x-primary-button wire:click="setShow(true)" wire:key="btn-agendamento" class="bg-blue-500 px-4 py-3 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg order-last sm:order-first">
             <i class="fa-solid fa-plus mr-2"></i>
-            <span wire:loading.remove wire:target="setShow">Agendamento</span>
+            <span >Agendamento</span>
 
-            <div wire:loading wire:target="setShow" class="spinner-border spinner-border-sm fs-4 text-gray-300" role="status">
+            {{--<div wire:loading wire:target="setShow" class="spinner-border spinner-border-sm fs-4 text-gray-300" role="status">
                 <span class="visually-hidden">...</span>
-            </div>
+            </div>--}}
         </x-primary-button>
 
         <!-- Filtros -->
-        <x-filtro-container class="md:w-full ">
+        <x-filtro-container class="md:w-full " wire:ignore wire:key="filtro-agendamentos">
             <!-- Filtro de Data Inicial -->
             <div class="w-full sm:w-1/2 lg:w-1/3">
                 <label for="data_ini" class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold mb-1">
@@ -43,8 +43,8 @@
     </div>
 
     <!-- Modal de Agendamento -->
-    <x-modal name="create-agenda" :show="$show" focusable class="flex flex-wrap px-8 mt-2">
-        <form wire:submit.prevent="store" class="w-full bg-white p-8 mt-2">
+    <x-modal id="create-agenda" name="create-agenda" :show="$show" focusable class="flex flex-wrap px-8 mt-2" wire="show">
+        <form wire:submit.prevent="store" class="w-full bg-white dark:bg-gray-800 p-8 mt-2">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                     <x-input-label for="date" :value="__('Data')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1"/>
@@ -58,7 +58,7 @@
                 </div>
                 <div>
                     <x-input-label for="observacoes" :value="__('Observações')" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1"/>
-                    <textarea id="observacoes" name="observacoes" wire:model="form.observation" autocomplete="off" class="w-full bg-gray-50 border border-gray-200 rounded py-1 px-2" ></textarea>
+                    <textarea id="observacoes" name="observacoes" wire:model="form.observation" autocomplete="off" class="w-full bg-gray-50 border border-gray-200 rounded py-1 px-2 dark:text-gray-600" ></textarea>
                     <x-input-error class="mt-1" :messages="$errors->get('form.observation')" />
                 </div>
             </div>
@@ -71,7 +71,7 @@
     </x-modal>
 
     <!-- Lista de Visitas -->
-    <div class="text-gray-900 dark:text-gray-100">
+    <div class="text-gray-900 dark:text-gray-600">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-8 mt-4 mb-4">
             @foreach ($visitas as $i)
                 <div class="bg-white p-4 rounded-lg shadow-md min-h-40 h-full flex flex-col justify-between">
@@ -91,7 +91,7 @@
 <script>
     // Detecta o tamanho da tela e altera o título do filtro
     if (window.innerWidth < 640) { // Menor que a largura do tamanho 'sm' do Tailwind
-        
+
         document.getElementById('dropdownButton').innerHTML = '<i class="fa-solid fa-filter"></i>';
     }else{
         document.getElementById('dropdownButton').innerHTML = '<i class="fa-solid fa-filter"></i> Filtros';

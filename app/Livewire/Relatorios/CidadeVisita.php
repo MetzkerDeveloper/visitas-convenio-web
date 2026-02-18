@@ -31,42 +31,42 @@ class CidadeVisita extends Component
         $this->usuarios  = User::all();
         $this->regioes   = Regiao::all();
     }
-    
+
     private function getCidadeVisitada()
     {
         $sql = "
-            SELECT DISTINCT 
-                p.name AS promotor, 
-                a.city AS cidade_agendada, 
+            SELECT DISTINCT
+                p.name AS promotor,
+                a.city AS cidade_agendada,
                 COALESCE(v.city, 'Não visitou') AS cidade_visitada
-            FROM visitas_convenio_agendas a
-            JOIN visitas_convenio_users p ON a.id_user = p.id
-            LEFT JOIN visitas_convenio_visitas v 
-                ON a.id_user = v.id_user 
+            FROM agendas a
+            JOIN users p ON a.id_user = p.id
+            LEFT JOIN visitas v
+                ON a.id_user = v.id_user
                 AND v.city LIKE CONCAT('%', a.city, '%')
             WHERE a.date BETWEEN ? AND ?
-        
+
             UNION
-        
-            SELECT DISTINCT 
-                p.name AS promotor, 
-                'Cidade não agendada' AS cidade_agendada, 
+
+            SELECT DISTINCT
+                p.name AS promotor,
+                'Cidade não agendada' AS cidade_agendada,
                 v.city AS cidade_visitada
-            FROM visitas_convenio_visitas v
-            JOIN visitas_convenio_users p ON v.id_user = p.id
+            FROM visitas v
+            JOIN users p ON v.id_user = p.id
             WHERE NOT EXISTS (
-                SELECT 1 
-                FROM visitas_convenio_agendas a
-                WHERE a.id_user = v.id_user 
-                AND a.city LIKE CONCAT('%', v.city, '%') 
+                SELECT 1
+                FROM agendas a
+                WHERE a.id_user = v.id_user
+                AND a.city LIKE CONCAT('%', v.city, '%')
                 AND a.date BETWEEN ? AND ?
             )
         ";
     return DB::select($sql, [$this->data_ini, $this->data_fim, $this->data_ini, $this->data_fim]);
-    
+
     }
-    
-    
+
+
     public function pesquisar(): void
     {
         $this->getCidadeVisitada();
