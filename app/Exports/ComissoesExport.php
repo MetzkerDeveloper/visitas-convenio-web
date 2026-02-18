@@ -42,10 +42,10 @@ class ComissoesExport implements FromCollection, WithHeadings
         ->select(
             'p.name as promotor',
             'r.name as regiao',
-            DB::raw('COUNT(CASE WHEN visitas_convenio_o.id = 1 THEN 1 END) AS captacao'),
-            DB::raw('COUNT(CASE WHEN visitas_convenio_o.id = 2 THEN 1 END) AS loja'),
-            DB::raw('COUNT(CASE WHEN visitas_convenio_o.id = 3 THEN 1 END) AS manutencao'),
-            DB::raw("(COUNT(visitas_convenio_v.id) * visitas_convenio_param.value) AS total_a_pagar")
+            DB::raw('COUNT(CASE WHEN o.id = 1 THEN 1 END) AS captacao'),
+            DB::raw('COUNT(CASE WHEN o.id = 2 THEN 1 END) AS loja'),
+            DB::raw('COUNT(CASE WHEN o.id = 3 THEN 1 END) AS manutencao'),
+            DB::raw("(COUNT(v.id) * param.value) AS total_a_pagar")
         )
         ->whereBetween('v.date', [$this->dataIni, $this->dataFim])
         ->groupBy('p.id', 'p.name', 'r.name')

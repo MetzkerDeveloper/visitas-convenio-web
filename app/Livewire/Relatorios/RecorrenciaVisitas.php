@@ -17,7 +17,7 @@ class RecorrenciaVisitas extends Component
     public $meses;
     public $users;
     public $promotor;
-    public $recorrencias = []; 
+    public $recorrencias = [];
 
     public function mount(){
         $this->data_ini = now()->startOfMonth()->format('Y-m-d');
@@ -28,43 +28,43 @@ class RecorrenciaVisitas extends Component
     public function getRecorrencia()
     {
         try{
-  
+
             $sql = "
-                SELECT 
+                SELECT
                     p.name AS promotor,
                     v.cnpj,
-                    MAX(v.enterprise) AS enterprise, 
+                    MAX(v.enterprise) AS enterprise,
                     MAX(v.date) AS data_ultima_visita,
                     COUNT(*) AS visitas_no_periodo,
-                    CASE 
+                    CASE
                         WHEN EXISTS (
-                            SELECT 1 
-                            FROM visitas_convenio_visitas v_ant
+                            SELECT 1
+                            FROM visitas v_ant
                             WHERE v_ant.cnpj = v.cnpj
                             AND v_ant.id_user = v.id_user
-                            AND v_ant.date BETWEEN DATE_SUB( ?, INTERVAL ? MONTH) 
+                            AND v_ant.date BETWEEN DATE_SUB( ?, INTERVAL ? MONTH)
                                                 AND DATE_SUB( ?, INTERVAL 1 DAY)
                         ) THEN 'Sim'
                         ELSE 'Não'
                     END AS visitada_ultimos_meses
-                FROM visitas_convenio_visitas v
-                JOIN visitas_convenio_users p ON p.id = v.id_user
+                FROM visitas v
+                JOIN users p ON p.id = v.id_user
                 WHERE v.date BETWEEN ? AND ?
                 ";
 
             if(!empty($this->promotor)) {
                 $sql .= " AND v.id_user = ?";
             }
-                
+
             $sql .= " GROUP BY v.cnpj, v.id_user, p.name;";
-                
+
 
             $params = [
                 $this->data_ini,
                 $this->meses,
                 $this->data_ini,
             ];
-                
+
             if (!empty($this->promotor)) {
                 $params[] = $this->data_ini;
                 $params[] = $this->data_fim;
@@ -73,10 +73,9 @@ class RecorrenciaVisitas extends Component
                 $params[] = $this->data_ini;
                 $params[] = $this->data_fim;
             }
-            
+
 
             $recorrencia = DB::select($sql, $params);
-
             return $recorrencia;
 
         }catch(\Exception $e){
@@ -92,12 +91,12 @@ class RecorrenciaVisitas extends Component
                 'data_fim' => 'required|date',
                 'meses' => 'required|integer|min:1',
             ]);
-            
+
            $this->recorrencias = $this->getRecorrencia();
         } catch (\Illuminate\Validation\ValidationException $e) {
-            
+
             $errors = $e->validator->errors();
-            
+
             if ($errors->has('data_ini')) {
                 $this->errorToast(implode(' ', $errors->get('data_ini')));
             }
@@ -107,7 +106,7 @@ class RecorrenciaVisitas extends Component
             if ($errors->has('meses')) {
                 $this->errorToast(implode(' ', $errors->get('meses')));
             }
-    
+
             return;
         }
     }

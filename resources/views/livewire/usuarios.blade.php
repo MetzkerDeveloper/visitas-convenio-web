@@ -1,17 +1,22 @@
 <div>
 
-    <div class="flex justify-center items-center w-full">
-        <x-secondary-button wire:click="setShow(true)">
-            <div class="flex items-center gap-2">
-                <span wire:loading.remove wire:target="setShow">Cadastrar Usuário</span>
-                <div wire:loading wire:target="setShow" class="spinner-border spinner-border-sm fs-4 text-gray-300" role="status">
-                    <span class="visually-hidden">...</span>
+    <div class="flex justify-between items-center justify-center w-full mt-2 px-8 ">
+
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Usuários Sistema') }}
+            </h2>
+            <x-secondary-button wire:click="setShow(true)">
+                <div class="flex items-center gap-2">
+                    <span wire:loading.remove wire:target="setShow">Cadastrar Usuário</span>
+                    <div wire:loading wire:target="setShow" class="spinner-border spinner-border-sm fs-4 text-gray-300" role="status">
+                        <span class="visually-hidden">...</span>
+                    </div>
                 </div>
-            </div>
-        </x-secondary-button>
+            </x-secondary-button>
+
     </div>
 
-    <x-modal name="create-user" :show="$show" focusable>
+    <x-modal id="create-user" name="create-user" :show="$show"  wire="show" focusable>
         <section class="bg-white dark:bg-gray-800 rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
             <header class="text-center mb-4">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -74,7 +79,7 @@
 
                 <div class="flex justify-end gap-2 mt-4">
                     <x-secondary-button wire:click="setShow(false)" type="reset">Cancelar</x-secondary-button>
-                    <x-primary-button type="submit">Registrar</x-primary-button>
+                    <x-button type="submit">Registrar</x-button>
                 </div>
             </form>
         </section>
@@ -83,7 +88,7 @@
 
 
     <div class="overflow-x-auto px-6 py-6">
-        <table class="min-w-full table-auto border border-gray-300 mt-8">
+        <table class="min-w-full table-auto border border-gray-300 mt-8 ">
             <thead class="text-center bg-gray-100">
                 <tr>
                     <th class="px-4 py-2 cursor-pointer" >Id </th>
@@ -93,7 +98,7 @@
                     <th class="px-4 py-2">Editar Cadastro</th>
                 </tr>
             </thead>
-            <tbody class="text-center bg-white">
+            <tbody class="text-center bg-white dark:bg-gray-800 dark:text-gray-200">
                 @forelse($users as $user)
                     <tr class="border-t">
                         <td class="px-4 py-2">{{ $user->id }}</td>

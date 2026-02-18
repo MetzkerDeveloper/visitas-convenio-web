@@ -8,14 +8,15 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="shortcut icon" type="imagex/png" href="assets/images/logo.ico">
-        
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <tallstackui:script />
         @livewireStyles
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireScripts
     </head>
     <body class="font-sans text-gray-900 antialiased">
