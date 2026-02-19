@@ -77,11 +77,11 @@ new class extends Component
                                 <p class="text-center w-full p-2">  <x-dropdown.items  text="Relatórios" /></p>
                             <hr>
 
-                            <x-dropdown-link :href="route('cidade-visitada')" wire:navigate>
+                            <x-dropdown-link :href="route('cidade-visitada')" >
                                 <x-dropdown.items icon="building-office-2" text="Cidades Visitadas" />
                             </x-dropdown-link>
 
-                            <x-dropdown-link :href="route('recorrencia-visitas')" wire:navigate>
+                            <x-dropdown-link :href="route('recorrencia-visitas')" >
                                 <x-dropdown.items icon="document-text" text="Recorrência Visitas" />
                             </x-dropdown-link>
 

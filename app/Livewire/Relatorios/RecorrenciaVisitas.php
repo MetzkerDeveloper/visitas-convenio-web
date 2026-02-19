@@ -3,14 +3,17 @@
 namespace App\Livewire\Relatorios;
 
 use App\Models\User;
+use App\Traits\SweetAlert;
 use App\Traits\Toastify;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use TallStackUi\Traits\Interactions;
 
 class RecorrenciaVisitas extends Component
 {
-    use Toastify;
+
+    use Interactions;
 
     public $data_ini;
     public $data_fim;
@@ -22,7 +25,15 @@ class RecorrenciaVisitas extends Component
     public function mount(){
         $this->data_ini = now()->startOfMonth()->format('Y-m-d');
         $this->data_fim = now()->format('Y-m-d');
-        $this->users = User::all();
+        $this->users = User::select(['id','name'])
+            ->get()
+            ->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => mb_convert_encoding($user->name, 'UTF-8', 'UTF-8'),
+                ];
+            })
+            ->toArray();
     }
 
     public function getRecorrencia()
@@ -98,13 +109,13 @@ class RecorrenciaVisitas extends Component
             $errors = $e->validator->errors();
 
             if ($errors->has('data_ini')) {
-                $this->errorToast(implode(' ', $errors->get('data_ini')));
+                $this->dialog()->warning('Atenção',implode(' ', $errors->get('data_ini')))->send();
             }
             if ($errors->has('data_fim')) {
-                $this->errorToast(implode(' ', $errors->get('data_fim')));
+                $this->dialog()->warning('Atenção',implode(' ', $errors->get('data_fim')))->send();
             }
             if ($errors->has('meses')) {
-                $this->errorToast(implode(' ', $errors->get('meses')));
+                $this->dialog()->warning('Atenção',implode(' ', $errors->get('meses')))->send();
             }
 
             return;

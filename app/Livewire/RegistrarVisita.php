@@ -7,11 +7,12 @@ use App\Models\{Objetivo, Regiao, User, Visita};
 use App\Traits\{Functions, SweetAlert, Toastify};
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use TallStackUi\Traits\Interactions;
 
 class RegistrarVisita extends Component
 {
-    use Toastify;
-    use SweetAlert;
+
+    use Interactions;
     use Functions;
 
     public bool $show = false;
@@ -50,7 +51,7 @@ class RegistrarVisita extends Component
         $dateIsValid = $this->validateVisitDate($this->form->date);
 
         if (!$dateIsValid) {
-            $this->error('Não é possível registrar visita para esta data.!');
+            $this->dialog()->warning('Atenção','Não é possível registrar visita para esta data.!')->send();
             $this->form->reset();
 
             return;
@@ -61,8 +62,8 @@ class RegistrarVisita extends Component
         $data['id_user'] = $this->user->id;
 
         Visita::create($data);
-        $this->success('Visita registrada com sucesso!');
-        $this->dispatch('vista:created');
+        $this->dialog()->success('Sucesso!','Visita registrada com sucesso!')->send();
+        $this->dispatch('visita:created');
         $this->setShow(false);
         $this->form->reset();
     }

@@ -33,7 +33,7 @@
         <select id="meses" name="meses" wire:model='promotor' class="w-full bg-gray-50 border border-gray-200 rounded py-2 px-3">
             <option value="">Selecione</option>
             @foreach ($users as $promotor)
-                <option value="{{ $promotor->id }}">{{ $promotor->name }}</option>
+                <option value="{{ $promotor['id'] }}">{{ $promotor['name'] }}</option>
             @endforeach
         </select>
         <x-input-error class="mt-2" :messages="$errors->get('promotor')" />
@@ -78,5 +78,5 @@
         </table>
     </div>
    @endif
-   
+
 </div>
