@@ -62,7 +62,13 @@ class Visita extends Component
         return view('livewire.editar-visita', ['visita' => $visita]);
     }
 
-    #[Layout("layouts.app"), On('vista:created')]
+    #[On('visita:created')]
+    public function atualizarLista()
+    {
+        // Pode ficar vazio se quiser só re-renderizar
+    }
+
+    #[Layout("layouts.app")]
     public function render()
     {
         $visitas = $this->getVisitas();
