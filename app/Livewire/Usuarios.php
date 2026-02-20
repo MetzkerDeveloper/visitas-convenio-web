@@ -7,10 +7,12 @@ use App\Models\{Nivel, Regiao, User};
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\{Layout, On};
 use Livewire\{Component, WithPagination};
+use TallStackUi\Traits\Interactions;
 
 class Usuarios extends Component
 {
     use WithPagination;
+    use Interactions;
 
     public bool $show = false;
 
@@ -61,6 +63,13 @@ class Usuarios extends Component
         return redirect('/usuarios');
     }
 
+    public function updateStatus($userId, $status){
+        $user = User::find($userId);
+        $user->status = $status;
+        $user->save();
+
+        $this->dialog()->success('Sucesso!','Status alterado com sucesso!')->send();
+    }
     #[Layout('layouts.app'),On('user::updated')]
     public function render()
     {

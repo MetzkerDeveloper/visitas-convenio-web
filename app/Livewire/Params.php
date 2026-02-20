@@ -6,10 +6,11 @@ use App\Models\Parametro;
 use App\Traits\SweetAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use TallStackUi\Traits\Interactions;
 
 class Params extends Component
 {
-    use SweetAlert;
+    use Interactions;
 
     public $parametros;
 
@@ -40,7 +41,7 @@ class Params extends Component
         // Atualiza a lista de parâmetros (opcional)
         $this->parametros = Parametro::all();
 
-        $this->success("Valor do parametro $parametro->name, foi atualizado com sucesso!");
+        $this->dialog()->success('Sucesso!', "Valor do parametro $parametro->name, foi atualizado com sucesso!")->send();
 
     }
 

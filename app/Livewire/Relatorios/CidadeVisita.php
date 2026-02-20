@@ -8,9 +8,11 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use TallStackUi\Traits\Interactions;
 
 class CidadeVisita extends Component
 {
+    use Interactions;
 
     public $usuarios = [];
 
@@ -69,7 +71,25 @@ class CidadeVisita extends Component
 
     public function pesquisar(): void
     {
-        $this->getCidadeVisitada();
+
+        try {
+            $this->validate(['data_ini' => 'required|date', 'data_fim' => 'required|date']);
+
+            $this->getCidadeVisitada();
+        }catch (\Illuminate\Validation\ValidationException $e){
+            $errors = $e->validator->errors();
+
+            if ($errors->has('data_ini')) {
+                $this->dialog()->info('Atenção','O campo Data Inicial é obrigatório')->send();
+                return;
+            }
+
+            if ($errors->has('data_fim')) {
+                $this->dialog()->info('Atenção', 'O campo Data Final é obrigatório')->send();
+                return;
+            }
+        }
+
     }
 
     #[Layout('layouts.app')]

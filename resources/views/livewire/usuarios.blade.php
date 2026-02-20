@@ -95,6 +95,7 @@
                     <th class="px-4 py-2 cursor-pointer" >Região </th>
                     <th class="px-4 py-2 cursor-pointer" >Nome </th>
                     <th class="px-4 py-2 cursor-pointer" >Nível Acesso </th>
+                    <th class="px-4 py-2 cursor-pointer" >Status Usuário </th>
                     <th class="px-4 py-2">Editar Cadastro</th>
                 </tr>
             </thead>
@@ -105,6 +106,7 @@
                         <td class="px-4 py-2">{{ $user->regiao->name }}</td>
                         <td class="px-4 py-2">{{ $user->name }}</td>
                         <td class="px-4 py-2">{{ $user->nivel_acesso == null ? 'Atualize os dados' : $user->nivel->descricao }}</td>
+                        <td class="px-4 py-2"><x-toggle color="blue" label="{{$user->status ? 'Ativo' : 'Inativo' }}" :checked="(bool) $user->status" wire:change="updateStatus({{$user->id}}, $event.target.checked )"/> </td>
                         <td class="px-4 py-2"><livewire:editar-usuario :user="$user" :key="$user->id"/></td>
                     </tr>
                 @empty
