@@ -109,16 +109,17 @@ class RecorrenciaVisitas extends Component
             $errors = $e->validator->errors();
 
             if ($errors->has('data_ini')) {
-                $this->dialog()->warning('Atenção',implode(' ', $errors->get('data_ini')))->send();
+                $this->dialog()->info('Atenção',implode(' ', $errors->get('data_ini')))->send();
+                return;
             }
             if ($errors->has('data_fim')) {
-                $this->dialog()->warning('Atenção',implode(' ', $errors->get('data_fim')))->send();
+                $this->dialog()->info('Atenção',implode(' ', $errors->get('data_fim')))->send();
+                return;
             }
             if ($errors->has('meses')) {
-                $this->dialog()->warning('Atenção',implode(' ', $errors->get('meses')))->send();
+                $this->dialog()->info('Atenção',implode(' ', $errors->get('meses')))->send();
+                return;
             }
-
-            return;
         }
     }
 

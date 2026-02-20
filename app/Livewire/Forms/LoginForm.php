@@ -37,6 +37,15 @@ class LoginForm extends Form
             ]);
         }
 
+        if (!auth()->user()->status) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'acesso' => 'Usuário sem permissão para acessar o sistema. Contate o gestor.',
+            ]);
+        }
+
+
         RateLimiter::clear($this->throttleKey());
     }
 

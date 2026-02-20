@@ -65,7 +65,7 @@
                         <td class="px-4 py-2">{{ $recorrencia->promotor }}</td>
                         <td class="px-4 py-2">{{ $recorrencia->cnpj }}</td>
                         <td class="px-4 py-2">{{ $recorrencia->enterprise }}</td>
-                        <td class="px-4 py-2">{{ $recorrencia->data_ultima_visita }}</td>
+                        <td class="px-4 py-2">{{ \Carbon\Carbon::parse($recorrencia->data_ultima_visita)->format('d/m/Y') }}</td>
                         <td class="px-4 py-2">{{ $recorrencia->visitas_no_periodo }}</td>
                         <td class="px-4 py-2">{{ $recorrencia->visitada_ultimos_meses }}</td>
                     </tr>

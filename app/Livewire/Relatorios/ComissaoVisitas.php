@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\{DB};
 use Livewire\Attributes\{Layout, Validate};
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
+use TallStackUi\Traits\Interactions;
 
 class ComissaoVisitas extends Component
 {
-    use SweetAlert;
+    use Interactions;
 
     #[Validate('required')]
     public $dataIni;
@@ -41,15 +42,30 @@ class ComissaoVisitas extends Component
 
     public function pesquisar()
     {
-        $this->validate();
-        $this->getComissao();
+        try {
+            $this->validate();
+            $this->getComissao();
+        }catch (\Illuminate\Validation\ValidationException $e){
+            $errors = $e->validator->errors();
+
+            if ($errors->has('dataIni')) {
+                $this->dialog()->info('Atenção','O campo Data Inicial é obrigatório')->send();
+                return;
+            }
+
+            if ($errors->has('dataFim')) {
+                $this->dialog()->info('Atenção', 'O campo Data Final é obrigatório')->send();
+                return;
+            }
+
+
+        }
     }
 
     public function download()
     {
         if (!$this->dataIni || !$this->dataFim) {
-            $this->error('Preencha as datas iniciais e finais para baixar o relatório! corretamente');
-
+            $this->dialog()->warning('Atenção', 'Preencha as datas iniciais e finais para baixar o relatório! corretamente')->send();
             return;
         }
 
