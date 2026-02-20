@@ -36,7 +36,7 @@ class ComissaoVisitas extends Component
                         DB::raw("(COUNT(v.id) * param.value) AS total_a_pagar")
                     )
                     ->whereBetween('v.date', [$this->dataIni, $this->dataFim])
-                    ->groupBy('p.id', 'p.name', 'r.name')
+                    ->groupBy('p.id', 'p.name', 'r.name', 'param.value')
                     ->get();
     }
 
