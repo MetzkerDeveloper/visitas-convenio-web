@@ -34,6 +34,12 @@ new class extends Component
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')" wire:navigate>
                         {{ __('Menu') }}
                     </x-nav-link>
+
+                    @can('isAdmin')
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

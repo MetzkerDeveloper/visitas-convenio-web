@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\{Agenda, Params, Visita, Usuarios};
+use App\Livewire\Dashboards\Dashboard;
 use App\Livewire\Relatorios\{CidadeVisita, ComissaoVisitas, RecorrenciaVisitas};
 use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
@@ -58,6 +59,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/recorrencia-visitas', RecorrenciaVisitas::class)
     ->name('recorrencia-visitas');
+
+    Route::get('/dashboard', Dashboard::class)
+    ->name('dashboard');
 
 });
 
