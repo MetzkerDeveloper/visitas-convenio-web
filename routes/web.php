@@ -1,10 +1,10 @@
 <?php
 
 use App\Livewire\{Agenda, Params, Visita, Usuarios};
+use App\Livewire\Dashboards\Dashboard;
 use App\Livewire\Relatorios\{CidadeVisita, ComissaoVisitas, RecorrenciaVisitas};
 use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
-
 
 /*if(env('APP_ENV') !== 'local') {
     Livewire::setUpdateRoute(function ($handle) {
@@ -21,7 +21,7 @@ Route::get('/', function () {
     if (app()->isLocal()) {
         Auth::loginUsingId(1);
 
-        return to_route('dashboard');
+        return to_route('home');
     }
 
     return to_route('login');
@@ -35,9 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/visita/{id}', [Visita::class, 'show_visita'])
     ->name('editar-visita');
 
-    Route::view('dashboard', 'dashboard')
+    Route::view('home', 'home')
     ->middleware(['verified'])
-    ->name('dashboard');
+    ->name('home');
 
     Route::view('profile', 'profile')
     ->name('profile');
@@ -59,6 +59,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/recorrencia-visitas', RecorrenciaVisitas::class)
     ->name('recorrencia-visitas');
+
+    Route::get('/dashboard', Dashboard::class)
+    ->name('dashboard');
 
 });
 

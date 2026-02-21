@@ -3,8 +3,6 @@
 namespace App\Livewire\Relatorios;
 
 use App\Models\User;
-use App\Traits\SweetAlert;
-use App\Traits\Toastify;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -67,7 +65,7 @@ class RecorrenciaVisitas extends Component
                 $sql .= " AND v.id_user = ?";
             }
 
-            $sql .= " GROUP BY v.cnpj, v.id_user, p.name;";
+            $sql .= " GROUP BY v.cnpj, v.id_user, p.name; ";
 
 
             $params = [
@@ -90,7 +88,7 @@ class RecorrenciaVisitas extends Component
             return $recorrencia;
 
         }catch(\Exception $e){
-            $this->errorToast('Erro ao buscar recorrência: ' . $e->getMessage());
+            $this->dialog()->error('Atenção!', 'Erro ao buscar recorrência: ' . $e->getMessage())->send();
         }
     }
 
