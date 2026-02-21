@@ -137,17 +137,65 @@
 <script>
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude;
-            locationString = longitude + ',' + latitude;
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
 
-            $wire.set('form.location', locationString, live = true)
-        },
-        (error) => {
-            console.error('Error getting location:', error);
-        });
-    }
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                const accuracy = position.coords.accuracy; // em metros
+                const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            function salvar(forcada = false) {
+                const locationString = longitude + ',' + latitude;
+                $wire.set('form.location', locationString, true);
+            }
+            
+            // DESKTOP → sempre salva
+            if (!isMobile) {
+                salvar(false);
+                return;
+            }
+
+            // MOBILE → regra normal
+            if (accuracy <= 30) {
+                salvar(false);
+            } else {
+
+                const jaConfirmou = sessionStorage.getItem('confirmou_localizacao');
+
+                if (!jaConfirmou) {
+
+                    const continuar = confirm(
+                        `Localização imprecisa (${Math.round(accuracy)}m).Deseja continuar mesmo assim?`
+                    );
+
+                    if (continuar) {
+                        sessionStorage.setItem('confirmou_localizacao', 'true');
+                        salvar(true);
+                    }
+
+                } else {
+                    salvar(true);
+                }
+            }
+
+            },
+            (error) => {
+                console.error('Erro ao obter localização:', error);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0
+            }
+        );
+}
+
+function salvar() {
+    const locationString = longitude + ',' + latitude;
+    $wire.set('form.location', locationString, true);
+}
+
 </script>
 @endscript
 
