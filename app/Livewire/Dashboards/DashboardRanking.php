@@ -84,7 +84,7 @@ class DashboardRanking extends Component
                 ->selectRaw('
                     id_user,
                     COUNT(*) as total_visitas,
-                    SUM(TIMESTAMPDIFF(MINUTE, start_time, end_time)) as total_minutos
+                    SUM((TIME_TO_SEC(end_time) - TIME_TO_SEC(start_time)) / 60) as total_minutos
                 ')
                 ->groupBy('id_user')
                 ->with('promotor')

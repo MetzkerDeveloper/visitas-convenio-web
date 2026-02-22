@@ -16,7 +16,7 @@ class DashboardKpis extends Component
 
     public ?int $visitasHoje = null;
     public ?string $tempoMedioVisita = null;
-    
+
     #[On('dashboard:filtersUpdated')]
     public function atualizarFiltros($periodo, $promotor)
     {
@@ -59,14 +59,15 @@ class DashboardKpis extends Component
     #[Computed]
     public function getVisitasHoje(): ?int
     {
-       return $this->baseQuery()->count();
+        return $this->baseQuery()->count();
     }
 
     #[Computed]
     public function getTempoMedioVisita(): ?string
     {
-         $query = $this->baseQuery()
-        ->whereNotNull('end_time');
+        $query = $this->baseQuery()
+            ->whereNotNull('start_time')
+            ->whereNotNull('end_time');
 
         if (DB::getDriverName() === 'sqlite') {
             $query->selectRaw("
@@ -74,7 +75,7 @@ class DashboardKpis extends Component
             ");
         } else {
             $query->selectRaw("
-                AVG(TIMESTAMPDIFF(MINUTE, start_time, end_time)) as media
+                AVG((TIME_TO_SEC(end_time) - TIME_TO_SEC(start_time)) / 60) as media
             ");
         }
 
@@ -100,7 +101,9 @@ class DashboardKpis extends Component
             ->whereDate('date', today()->subDay())
             ->count();
 
-        if ($ontem === 0) return null;
+        if ($ontem === 0) {
+            return null;
+        }
 
         $percentual = (($hoje - $ontem) / $ontem) * 100;
         $percentual = round($percentual, 2);
@@ -111,7 +114,7 @@ class DashboardKpis extends Component
     }
 
     #[Computed]
-    public function getMediaMensalVisitas(): ?string
+    public function getMediaVisitas(): ?string
     {
         $query = $this->baseQuery();
 
@@ -188,7 +191,7 @@ class DashboardKpis extends Component
         // Cidades planejadas
         $cidadesPlanejadas = $agendaQuery
         ->pluck('city')
-        ->map(fn($city) => strtolower(trim($city)))
+        ->map(fn ($city) => strtolower(trim($city)))
         ->unique();
 
         $totalPlanejado = $cidadesPlanejadas->count();
@@ -198,9 +201,9 @@ class DashboardKpis extends Component
         }
 
         // Cidades visitadas
-         $cidadesVisitadas = $visitaQuery
+        $cidadesVisitadas = $visitaQuery
         ->pluck('city')
-        ->map(fn($city) => strtolower(trim($city)))
+        ->map(fn ($city) => strtolower(trim($city)))
         ->unique();
 
         $totalCumprido = $cidadesPlanejadas

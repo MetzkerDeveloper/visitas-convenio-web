@@ -14,23 +14,23 @@
 
                     <div class="flex flex-wrap justify-center gap-4 p-4">
 
-                        <x-link :href="route('visitas')" class="w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-2">
-                            <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center w-full h-48">
+                        <x-link :href="route('visitas')" class="dark:bg-gray-800 w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-2">
+                            <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-4 flex flex-col items-center justify-center w-full h-48">
                                 <img src="{{asset('assets/images/visita.png')}}" alt="Relatório" class="w-20 h-20">
-                                <p class="mt-2 font-semibold text-center">VISITAS</p>
+                                <p class="mt-2 font-semibold text-center text-blue-600 dark:text-blue-400 text-lg group-hover:text-blue-700 dark:group-hover:text-blue-300">VISITAS</p>
                             </div>
                         </x-link>
                         <x-link  :href="route('agenda')" class="w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-2"  >
-                            <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col  items-center justify-center w-full h-48">
+                            <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-4 flex flex-col items-center justify-center w-full h-48">
                                 <img src="{{asset('assets/images/agenda.png')}}" alt="Agenda" class="w-20 h-20">
-                                <p class="mt-2 font-semibold text-center">AGENDA DE VISITAS</p>
+                                <p class="mt-2 font-semibold text-center text-blue-600 dark:text-blue-400 text-lg group-hover:text-blue-700 dark:group-hover:text-blue-300">AGENDA DE VISITAS</p>
                             </div>
                         </x-link>
                     @can('isAdmin')
                     <x-link :href="route('comissao')" class="w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-2" >
-                        <div class="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center w-full h-48">
+                        <div class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-4 flex flex-col items-center justify-center w-full h-48">
                             <img src="{{asset('assets/images/comissao.png')}}" alt="Combustível" class="w-20 h-20">
-                            <p class="mt-2 font-semibold text-center">COMISSÃO VISITAS</p>
+                            <p class="mt-2 font-semibold text-center text-blue-600 dark:text-blue-400 text-lg group-hover:text-blue-700 dark:group-hover:text-blue-300">COMISSÃO VISITAS</p>
                         </div>
 		            </x-link>
 
