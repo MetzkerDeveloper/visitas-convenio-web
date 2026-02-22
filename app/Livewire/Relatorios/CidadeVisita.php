@@ -30,7 +30,7 @@ class CidadeVisita extends Component
 
     public function mount()
     {
-        $this->usuarios  = User::all();
+        $this->usuarios  = User::whereStatus(true)->get();
         $this->regioes   = Regiao::all();
     }
 

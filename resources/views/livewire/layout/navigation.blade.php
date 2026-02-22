@@ -36,7 +36,7 @@ new class extends Component
                     </x-nav-link>
 
                     @can('isAdmin')
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" >
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     @endcan
@@ -146,6 +146,14 @@ new class extends Component
 
                     <x-responsive-nav-link :href="route('parametros')" wire:navigate>
                         {{ __('Parâmetros') }}
+                    </x-responsive-nav-link>
+
+                    <hr>
+                        <p class="text-center w-full p-2">  <x-dropdown.items  text="Relatórios" /></p>
+                    <hr>
+
+                    <x-responsive-nav-link :href="route('dashboard')" >
+                            {{ __('Dashboard') }}
                     </x-responsive-nav-link>
 
                     <x-responsive-nav-link :href="route('cidade-visitada')" wire:navigate>
