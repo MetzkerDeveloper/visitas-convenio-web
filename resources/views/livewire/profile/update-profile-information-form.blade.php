@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
+use TallStackUi\Traits\Interactions;
 
 new class extends Component
 {
+    use Interactions;
     public string $name = '';
     public string $email = '';
 
@@ -20,10 +22,24 @@ new class extends Component
         $this->email = Auth::user()->email;
     }
 
+    public function updateProfileInformation(): void
+    {
+        $this->dialog()
+            ->question('Attention!', 'Are you sure that you want to update your profile information?')
+            ->confirm('Confirm', 'updateProfileInformationConfirmed', 'Confirmed Successfully')
+            ->cancel('Cancel', 'cancelled', 'Cancelled Successfully')
+            ->send();
+    }
+
+    public function cancelled(string $message): void
+    {
+        $this->dialog()->error('Cancelled', $message)->send();
+    }
+
     /**
      * Update the profile information for the currently authenticated user.
      */
-    public function updateProfileInformation(): void
+    public function updateProfileInformationConfirmed(): void
     {
         $user = Auth::user();
 
@@ -40,7 +56,7 @@ new class extends Component
 
         $user->save();
 
-        $this->dispatch('profile-updated', name: $user->name);
+        $this->dialog()->success('Success', 'Profile information updated successfully.')->send();
     }
 
     /**
@@ -105,11 +121,7 @@ new class extends Component
         </div>
 
         <div class="flex items-center gap-4">
-            <x-button>{{ __('Save') }}</x-button>
-
-            <x-action-message class="me-3" on="profile-updated">
-                {{ __('Saved.') }}
-            </x-action-message>
+            <x-button type="submit">{{ __('Save') }}</x-button>
         </div>
     </form>
 </section>
