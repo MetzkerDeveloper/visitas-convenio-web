@@ -39,7 +39,9 @@ Route::middleware('auth')->group(function () {
     ->middleware(['verified'])
     ->name('home');
 
-    Route::view('profile', 'profile')
+    Route::get('profile', function () {
+        return view('profile');
+    })
     ->name('profile');
 
     Route::get('/agenda', Agenda::class)
