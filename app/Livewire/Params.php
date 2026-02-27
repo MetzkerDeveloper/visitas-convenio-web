@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Parametro;
 use App\Traits\SweetAlert;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use TallStackUi\Traits\Interactions;
 
@@ -26,6 +27,10 @@ class Params extends Component
         foreach ($this->parametros as $parametro) {
             $this->valores[$parametro->id] = $parametro->value;
         }
+    }
+
+    public function atualizaPage(){
+        $this->resetPage();
     }
 
     public function update($id)
