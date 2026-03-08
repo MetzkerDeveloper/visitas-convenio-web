@@ -11,7 +11,6 @@ use TallStackUi\Traits\Interactions;
 
 class RegistrarVisita extends Component
 {
-
     use Interactions;
     use Functions;
 
@@ -51,9 +50,9 @@ class RegistrarVisita extends Component
         $dateIsValid = $this->validateVisitDate($this->form->date);
 
         if (!$dateIsValid) {
-            $this->dialog()->warning('Atenção','Não é possível registrar visita para esta data.!')->send();
-            $this->form->reset();
-
+            $this->setShow(false);
+            $this->dialog()->warning('Atenção', 'Não é possível registrar visita para esta data. 
+            Contate o gestor para mais informações.')->send();
             return;
         }
 
