@@ -41,6 +41,13 @@ class DashboardRanking extends Component
                     now()->endOfWeek()
                 ]);
                 break;
+            
+            case 'mesAnt':
+                $query->whereBetween('date', [
+                    now()->subMonth()->startOfMonth(),
+                    now()->subMonth()->endOfMonth()
+                ]);
+                break;
 
             case 'mes':
             default:

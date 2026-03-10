@@ -10,6 +10,7 @@
             <option value="hoje">Hoje</option>
             <option value="semana">Esta Semana</option>
             <option value="mes">Este Mês</option>
+            <option value="mesAnt">Mês Anterior</option>
         </select>
     </div>
 

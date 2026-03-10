@@ -44,6 +44,13 @@ class DashboardKpis extends Component
                 ]);
                 break;
 
+            case 'mesAnt':
+                $query->whereBetween('date', [
+                    now()->subMonth()->startOfMonth(),
+                    now()->subMonth()->endOfMonth()
+                ]);
+                break;
+
             case 'mes':
             default:
                 $query->whereBetween('date', [
@@ -130,6 +137,10 @@ class DashboardKpis extends Component
                 $dias = now()->startOfWeek()->diffInDays(now()) + 1;
                 break;
 
+            case 'mesAnt':
+                $dias = now()->subMonth()->startOfMonth()->diffInDays(now()->subMonth()->endOfMonth()) + 1;
+                break;
+
             case 'mes':
             default:
                 $dias = now()->startOfMonth()->diffInDays(now()) + 1;
@@ -172,6 +183,17 @@ class DashboardKpis extends Component
                 $visitaQuery->whereBetween('date', [
                     now()->startOfWeek(),
                     now()->endOfWeek()
+                ]);
+                break;
+
+            case 'mesAnt':
+                $agendaQuery->whereBetween('date', [
+                    now()->subMonth()->startOfMonth(),
+                    now()->subMonth()->endOfMonth()
+                ]);
+                $visitaQuery->whereBetween('date', [
+                    now()->subMonth()->startOfMonth(),
+                    now()->subMonth()->endOfMonth()
                 ]);
                 break;
 

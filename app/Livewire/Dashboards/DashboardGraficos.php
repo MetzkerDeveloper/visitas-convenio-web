@@ -56,6 +56,13 @@ class DashboardGraficos extends Component
                         ]);
                         break;
 
+                    case 'mesAnt':
+                        $join->whereBetween('visitas.date', [
+                            Carbon::now()->subMonth()->startOfMonth(),
+                            Carbon::now()->subMonth()->endOfMonth()
+                        ]);
+                        break;
+
                     case 'mes':
                     default:
                         $join->whereBetween('visitas.date', [

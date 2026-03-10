@@ -14,5 +14,8 @@
     <!-- Ranking -->
     <livewire:dashboards.dashboard-ranking />
 
+    <!-- Mapa de Visitas -->
+    <livewire:dashboards.mapa-visitas />
+
 
 </div>
