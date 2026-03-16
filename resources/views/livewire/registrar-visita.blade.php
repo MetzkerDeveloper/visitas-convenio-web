@@ -164,10 +164,12 @@
                 const jaConfirmou = sessionStorage.getItem('confirmou_localizacao');
 
                 if (!jaConfirmou) {
-
-                    const continuar = confirm(
-                        `Localização imprecisa (${Math.round(accuracy)}m).Deseja continuar mesmo assim?`
-                    );
+                    /*
+                        const continuar = confirm(
+                            `Localização imprecisa (${Math.round(accuracy)}m).Deseja continuar mesmo assim?`
+                        );
+                    */
+                   const continuar = true;
 
                     if (continuar) {
                         sessionStorage.setItem('confirmou_localizacao', 'true');
