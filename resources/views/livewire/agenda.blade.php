@@ -3,8 +3,11 @@
         <h2 class="font-semibold text-xl text-gray-600 leading-tight dark:text-gray-300">
             {{ __('Agenda') }}
         </h2>
+        
     </x-slot>
+    
     <div class="flex flex-row items-center mt-4 w-full gap-2 px-8">
+     
         <!-- Botão de Agendamento -->
         <x-primary-button wire:click="setShow(true)" wire:key="btn-agendamento" 
         class="bg-blue-500 px-4 py-3 hover:bg-blue-500 text-white font-bold rounded-lg order-last sm:order-first transition">
@@ -12,6 +15,29 @@
             <span >Agendamento</span>
         </x-primary-button>
 
+        <x-slide title="Agenda de Visitas" wire="slide" >
+            <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-200 mb-4">Upload de Arquivo</h2>
+                 {{-- <x-upload  wire:model="file"/> --}}
+
+                 <x-upload wire:model="files" :multiple="true" accept=".xlsx,.xls,.csv,.ods">
+                    <x-slot:footer when-uploaded> 
+                        <x-button class="w-full" wire:click="importar" color="blue">
+                            Importar
+                        </x-button>
+                    </x-slot:footer>
+                </x-upload>
+                 
+            </div>
+        </x-slide>
+
+        @if (!$isMobile)
+            <x-button wire:click="$toggle('slide')" color="gray" class="order-last sm:order-first transition">
+             <i class="fa-solid fa-upload mr-2"></i>
+             Agenda
+            </x-button>
+        @endif
+    
         <x-filtro-container class="w-full" wire:ignore wire:key="filtro-agendamentos">
             <div class="flex flex-col sm:flex-row gap-4 w-full">
                 <div class="flex-1">
@@ -79,6 +105,7 @@
     </div>
 </div>
 
+
 <script>
     // Detecta o tamanho da tela e altera o título do filtro
     if (window.innerWidth < 640) { // Menor que a largura do tamanho 'sm' do Tailwind
@@ -87,4 +114,11 @@
     }else{
         document.getElementById('dropdownButton').innerHTML = '<i class="fa-solid fa-filter"></i> Filtros';
     }
+    
 </script>
+@script
+<script>
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    $wire.set('isMobile', isMobile, true);
+</script>
+@endscript
