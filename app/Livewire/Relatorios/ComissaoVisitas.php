@@ -22,6 +22,8 @@ class ComissaoVisitas extends Component
 
     public function getComissao()
     {
+        $prefix = DB::getTablePrefix();
+        
         return  DB::table('visitas as v')
                     ->join('users as p', 'v.id_user', '=', 'p.id')
                     ->join('objetivos as o', 'v.id_objective', '=', 'o.id')
@@ -30,10 +32,10 @@ class ComissaoVisitas extends Component
                     ->select(
                         'p.name as promotor',
                         'r.name as regiao',
-                        DB::raw('COUNT(CASE WHEN o.id = 1 THEN 1 END) AS captacao'),
-                        DB::raw('COUNT(CASE WHEN o.id = 2 THEN 1 END) AS loja'),
-                        DB::raw('COUNT(CASE WHEN o.id = 3 THEN 1 END) AS manutencao'),
-                        DB::raw("(COUNT(v.id) * param.value) AS total_a_pagar")
+                        DB::raw("COUNT(CASE WHEN {$prefix}o.id = 1 THEN 1 END) AS captacao"),
+                        DB::raw("COUNT(CASE WHEN {$prefix}o.id = 2 THEN 1 END) AS loja"),
+                        DB::raw("COUNT(CASE WHEN {$prefix}o.id = 3 THEN 1 END) AS manutencao"),
+                        DB::raw("(COUNT({$prefix}v.id) * {$prefix}param.value) AS total_a_pagar")
                     )
                     ->whereBetween('v.date', [$this->dataIni, $this->dataFim])
                     ->groupBy('p.id', 'p.name', 'r.name', 'param.value')

@@ -36,6 +36,8 @@ class RecorrenciaVisitas extends Component
 
     public function getRecorrencia()
     {
+        $prefix = DB::getTablePrefix();
+
         try{
 
             $sql = "
@@ -48,7 +50,7 @@ class RecorrenciaVisitas extends Component
                     CASE
                         WHEN EXISTS (
                             SELECT 1
-                            FROM visitas v_ant
+                            FROM {$prefix}visitas v_ant
                             WHERE v_ant.cnpj = v.cnpj
                             AND v_ant.id_user = v.id_user
                             AND v_ant.date BETWEEN DATE_SUB( ?, INTERVAL ? MONTH)
@@ -56,8 +58,8 @@ class RecorrenciaVisitas extends Component
                         ) THEN 'Sim'
                         ELSE 'Não'
                     END AS visitada_ultimos_meses
-                FROM visitas v
-                JOIN users p ON p.id = v.id_user
+                FROM {$prefix}visitas v
+                JOIN {$prefix}users p ON p.id = v.id_user
                 WHERE v.date BETWEEN ? AND ?
                 ";
 

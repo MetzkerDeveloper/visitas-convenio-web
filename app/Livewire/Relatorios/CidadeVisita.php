@@ -2,8 +2,7 @@
 
 namespace App\Livewire\Relatorios;
 
-use App\Models\{Objetivo, Regiao, User, Visita};
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\{ Regiao, User};
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
@@ -36,14 +35,16 @@ class CidadeVisita extends Component
 
     private function getCidadeVisitada()
     {
+        $prefix = DB::getTablePrefix();
+
         $sql = "
             SELECT DISTINCT
                 p.name AS promotor,
                 a.city AS cidade_agendada,
                 COALESCE(v.city, 'Não visitou') AS cidade_visitada
-            FROM agendas a
-            JOIN users p ON a.id_user = p.id
-            LEFT JOIN visitas v
+            FROM {$prefix}agendas a
+            JOIN {$prefix}users p ON a.id_user = p.id
+            LEFT JOIN {$prefix}visitas v
                 ON a.id_user = v.id_user
                 AND v.city LIKE CONCAT('%', a.city, '%')
             WHERE a.date BETWEEN ? AND ?
@@ -54,11 +55,11 @@ class CidadeVisita extends Component
                 p.name AS promotor,
                 'Cidade não agendada' AS cidade_agendada,
                 v.city AS cidade_visitada
-            FROM visitas v
-            JOIN users p ON v.id_user = p.id
+            FROM {$prefix}visitas v
+            JOIN {$prefix}users p ON v.id_user = p.id
             WHERE NOT EXISTS (
                 SELECT 1
-                FROM agendas a
+                FROM {$prefix}agendas a
                 WHERE a.id_user = v.id_user
                 AND a.city LIKE CONCAT('%', v.city, '%')
                 AND a.date BETWEEN ? AND ?
