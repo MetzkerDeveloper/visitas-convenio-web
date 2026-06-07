@@ -90,6 +90,10 @@ new class extends Component
                             <x-dropdown-link :href="route('recorrencia-visitas')" >
                                 <x-dropdown.items icon="document-text" text="Recorrência Visitas" />
                             </x-dropdown-link>
+                             
+                            {{-- <x-dropdown-link :href="route('2fa')" >
+                                <x-dropdown.items icon="document-text" text="Two Factor Authentication" />
+                            </x-dropdown-link> --}}
 
 
                             <hr>
