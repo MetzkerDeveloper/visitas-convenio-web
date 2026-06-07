@@ -71,6 +71,12 @@ Route::middleware('verified','auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)
     ->name('dashboard');
 
+    /*
+    Route::get('/2fa', function () {
+        return view('livewire.profile.two-fa');
+    })->name('2fa'); 
+    */
+
     Route::get('api/users', function (Request $request) {
           $search = $request->get('search');
            $selected = $request->get('selected');
