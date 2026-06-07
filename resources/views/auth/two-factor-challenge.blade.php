@@ -23,7 +23,7 @@
                     @csrf
 
                     <div>
-                        <x-pin id="code" name="code" length="6" label="Código" hint="Enviamos um código de 6 dígitos para o seu aplicativo autenticador." />
+                        <x-pin id="code" name="code" length="6" label="Code" hint="We sent a 6-digit code to your authenticator app." />
                         <x-input-error :messages="$errors->get('code')" class="mt-2" />
                     </div>
 
