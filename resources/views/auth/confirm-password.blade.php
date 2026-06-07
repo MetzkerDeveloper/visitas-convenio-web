@@ -1,39 +1,5 @@
-<?php
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\Layout;
-use Livewire\Volt\Component;
-
-new #[Layout('layouts.app')] class extends Component
-{
-    public string $password = '';
-
-    /**
-     * Confirm the current user's password.
-     */
-    public function confirmPassword(): void
-    {
-        $this->validate([
-            'password' => ['required', 'string'],
-        ]);
-
-        if (! Auth::guard('web')->validate([
-            'email' => Auth::user()->email,
-            'password' => $this->password,
-        ])) {
-            throw ValidationException::withMessages([
-                'password' => __('auth.password'),
-            ]);
-        }
-
-        session(['auth.password_confirmed_at' => time()]);
-
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
-    }
-}; ?>
-
-<section class="max-w-2xl mx-auto p-4 mt-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+<x-app-layout>
+    <section class="max-w-2xl mx-auto p-4 mt-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __('Confirm Password') }}
@@ -45,6 +11,7 @@ new #[Layout('layouts.app')] class extends Component
     </header>
 
     <form action="{{ route('password.confirm.store') }}" method="POST" class="mt-6 space-y-6">
+        @csrf
         <!-- Password -->
         <div>
             <x-input-label for="password" :value="__('Password')" />
@@ -64,3 +31,4 @@ new #[Layout('layouts.app')] class extends Component
         </div>
     </form>
 </section>
+</x-app-layout>

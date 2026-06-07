@@ -30,7 +30,7 @@ Route::get('/', function () {
     return to_route('login');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('verified','auth')->group(function () {
 
     Route::get('/visitas', Visita::class)
     ->name('visitas');
@@ -39,12 +39,12 @@ Route::middleware('auth')->group(function () {
     ->name('editar-visita');
 
     Route::view('home', 'home')
-    ->middleware(['verified'])
+    ->middleware(['verified','auth'])
     ->name('home');
 
     Route::get('profile', function () {
-        return view('profile');
-    })
+        return view('profile', ['request' => request() ]);
+    })->middleware(['verified','auth'])
     ->name('profile');
 
     Route::get('/agenda', Agenda::class)
