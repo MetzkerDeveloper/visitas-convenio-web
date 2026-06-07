@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboards;
 use App\Models\Agenda;
 use App\Models\Visita;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -213,7 +214,7 @@ class DashboardKpis extends Component
         // Cidades planejadas
         $cidadesPlanejadas = $agendaQuery
         ->pluck('city')
-        ->map(fn ($city) => strtolower(trim($city)))
+        ->map(fn ($city) => Str::lower(Str::ascii(trim($city))))
         ->unique();
 
         $totalPlanejado = $cidadesPlanejadas->count();
@@ -225,7 +226,7 @@ class DashboardKpis extends Component
         // Cidades visitadas
         $cidadesVisitadas = $visitaQuery
         ->pluck('city')
-        ->map(fn ($city) => strtolower(trim($city)))
+        ->map(fn ($city) => Str::lower(Str::ascii(trim($city))))
         ->unique();
 
         $totalCumprido = $cidadesPlanejadas

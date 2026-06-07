@@ -5,12 +5,12 @@ namespace App\Livewire\Dashboards;
 use App\Models\Regiao;
 use App\Models\Visita;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DashboardGraficos extends Component
 {
-
     public string $periodo = 'mes';
     public ?int $promotor = null;
 
@@ -30,34 +30,36 @@ class DashboardGraficos extends Component
     {
         $this->carregarDados();
     }
-    
+
     private function carregarDados()
     {
-        $query = Regiao::query()
-            ->leftJoin('visitas', function ($join) {
+        $prefix = DB::getTablePrefix();
+        
+        $query = Regiao::from('regiaos as r')
+            ->leftJoin('visitas as v', function ($join) {
 
-                $join->on('regiaos.id', '=', 'visitas.id_region');
+                $join->on('r.id', '=', 'v.id_region');
 
                 // Filtro por promotor
                 if ($this->promotor) {
-                    $join->where('visitas.id_user', $this->promotor);
+                    $join->where('v.id_user', $this->promotor);
                 }
 
                 // Filtro por período
                 switch ($this->periodo) {
                     case 'hoje':
-                        $join->whereDate('visitas.date', today());
+                        $join->whereDate('v.date', today());
                         break;
 
                     case 'semana':
-                        $join->whereBetween('visitas.date', [
+                        $join->whereBetween('v.date', [
                             now()->startOfWeek(),
                             now()->endOfWeek()
                         ]);
                         break;
 
                     case 'mesAnt':
-                        $join->whereBetween('visitas.date', [
+                        $join->whereBetween('v.date', [
                             Carbon::now()->subMonth()->startOfMonth(),
                             Carbon::now()->subMonth()->endOfMonth()
                         ]);
@@ -65,16 +67,16 @@ class DashboardGraficos extends Component
 
                     case 'mes':
                     default:
-                        $join->whereBetween('visitas.date', [
+                        $join->whereBetween('v.date', [
                             now()->startOfMonth(),
                             now()->endOfMonth()
                         ]);
                         break;
                 }
             })
-            ->selectRaw('regiaos.name as regiao, COUNT(visitas.id) as total')
-            ->groupBy('regiaos.id', 'regiaos.name')
-            ->orderBy('regiaos.name');
+            ->selectRaw("{$prefix}r.name as regiao, COUNT({$prefix}v.id) as total")
+            ->groupBy('r.id', 'r.name')
+            ->orderBy('r.name');
 
         $dados = $query->get();
 
@@ -87,7 +89,6 @@ class DashboardGraficos extends Component
             dados: $this->dados
         );
     }
-
     public function render()
     {
         return view('livewire.dashboards.dashboard-graficos');

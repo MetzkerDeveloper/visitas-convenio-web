@@ -24,6 +24,10 @@ class extends Component {
 
             Session::regenerate();
 
+            if (auth()->user()->two_factor_confirmed_at) {
+                return redirect()->route('two-factor.login');
+            }
+
             return redirect()->route('home');
         }catch (\Illuminate\Validation\ValidationException $e){
             $errors = $e->validator->errors();

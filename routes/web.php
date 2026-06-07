@@ -1,8 +1,11 @@
 <?php
 
-use App\Livewire\{Agenda, Params, Visita, Usuarios};
+use App\Livewire\{Agenda, ConvenioPorPromotor, Params, Visita, Usuarios};
 use App\Livewire\Dashboards\Dashboard;
 use App\Livewire\Relatorios\{CidadeVisita, ComissaoVisitas, RecorrenciaVisitas};
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Route};
 use Livewire\Livewire;
 
@@ -27,7 +30,7 @@ Route::get('/', function () {
     return to_route('login');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('verified','auth')->group(function () {
 
     Route::get('/visitas', Visita::class)
     ->name('visitas');
@@ -36,12 +39,12 @@ Route::middleware('auth')->group(function () {
     ->name('editar-visita');
 
     Route::view('home', 'home')
-    ->middleware(['verified'])
+    ->middleware(['verified','auth'])
     ->name('home');
 
     Route::get('profile', function () {
-        return view('profile');
-    })
+        return view('profile', ['request' => request() ]);
+    })->middleware(['verified','auth'])
     ->name('profile');
 
     Route::get('/agenda', Agenda::class)
@@ -56,6 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/comissao', ComissaoVisitas::class)
     ->name('comissao');
 
+    Route::get('/visitar', ConvenioPorPromotor::class)
+    ->name('visitar');
+
     Route::get('/cidade-visitada', CidadeVisita::class)
     ->name('cidade-visitada');
 
@@ -64,6 +70,22 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', Dashboard::class)
     ->name('dashboard');
+
+    Route::get('api/users', function (Request $request) {
+          $search = $request->get('search');
+           $selected = $request->get('selected');
+ 
+    return User::query()
+        ->when($selected, fn ($query) => $query->orWhere('id', $selected))
+        ->when($search, fn (Builder $query) => $query->where('name', 'like', "%{$search}%"))
+        ->unless($search, fn (Builder $query) => $query->limit(10))
+        ->orderBy('name')
+        ->get()
+        ->map(fn (User $user): array => [
+            'label' => $user->name,
+            'value' => $user->id,
+        ]);
+    })->name('api.users');
 
 });
 
