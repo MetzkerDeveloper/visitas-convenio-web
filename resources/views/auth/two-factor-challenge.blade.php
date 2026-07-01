@@ -23,7 +23,33 @@
                     @csrf
 
                     <div>
-                        <x-pin id="code" name="code" length="6" label="Code" hint="We sent a 6-digit code to your authenticator app." />
+                        {{-- Mobile --}}
+                        <div class="block md:hidden">
+                            <x-input
+                                id="code"
+                                name="code"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                maxlength="6"
+                                autocomplete="one-time-code"
+                                placeholder="Insert your code"
+                                class="w-full"
+                                hint="We sent a 6-digit code to your authenticator app."
+                            />
+                        </div>
+
+                        {{-- Desktop --}}
+                        <div class="hidden md:block">
+                            <x-pin
+                                id="code"
+                                name="code"
+                                length="6"
+                                label="Code"
+                                hint="We sent a 6-digit code to your authenticator app."
+                            />
+                        </div>
+                        {{-- <x-pin id="code" name="code" length="6" label="Code" hint="We sent a 6-digit code to your authenticator app." /> --}}
                         <x-input-error :messages="$errors->get('code')" class="mt-2" />
                     </div>
 
