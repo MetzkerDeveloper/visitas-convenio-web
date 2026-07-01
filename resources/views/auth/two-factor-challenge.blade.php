@@ -29,7 +29,6 @@
                                 id="code"
                                 name="code"
                                 type="text"
-                                inputmode="numeric"
                                 pattern="[0-9]*"
                                 maxlength="6"
                                 autocomplete="one-time-code"
